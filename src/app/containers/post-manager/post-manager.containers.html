@@ -1,0 +1,23 @@
+<table class="table-fixed w-full text-xs md:text-base overflow-hidden mt-4 md:mt-6">
+    <thead class="[&_th]:text-start [&_th]:p-2 w-full">
+        <tr class="border-b border-gray-500">
+            <th>아이디</th>
+            <th>제목</th>
+            <th>생성일</th>
+            <th class="!text-right text-orange-500">
+                <button (click)="onCreatePost()">생성 🍑</button>
+            </th>
+        </tr>
+    </thead>
+    <tbody class="w-full">
+        <tr *ngFor="let post of posts$|async" class="[&>td]:p-2 [&>td]:truncate border-b border-gray-500">
+            <td class="text-xs" [title]="post.id">{{post.id}}</td>
+            <td [title]="post.title">{{post.title}}</td>
+            <td>{{post.createdAt.toDate()|date}}</td>
+            <td class="text-right">
+                <button (click)="onUpdatePost()" class="mr-2">수정</button>
+                <button (click)="onDeletePost(post.id)">삭제</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

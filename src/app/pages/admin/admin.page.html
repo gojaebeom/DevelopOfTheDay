@@ -11,6 +11,7 @@
     </div>
 
     <app-category-manager *ngIf="selectedTab === 'CATEGORY'"></app-category-manager>
+    <app-post-manager *ngIf="selectedTab === 'POST'"></app-post-manager>
 
     <div *ngIf="selectedTab === 'POST'">
         포스트 관리

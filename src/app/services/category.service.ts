@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { addDoc, collectionData, CollectionReference, deleteDoc, doc, DocumentData, Firestore, orderBy, query, updateDoc } from "@angular/fire/firestore";
+import { addDoc, collectionData, deleteDoc, doc, Firestore, orderBy, query, updateDoc } from "@angular/fire/firestore";
 
 import { collection, Timestamp } from "@firebase/firestore";
 
-import { BehaviorSubject, from, map, of, shareReplay, switchMap, take, tap } from "rxjs";
+import { BehaviorSubject, from, shareReplay, take, tap } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -14,32 +14,36 @@ export class CategoryService {
 
     constructor(
         private readonly fireStore: Firestore
-    ) { }
+    ) {  }
 
-    initCategories(sortDto:ICategorySort = {column: 'createdAt', sort: 'desc'}) {
-        return collectionData(query(collection(this.fireStore, 'categories'), orderBy(sortDto.column, sortDto.sort)), { idField: 'id'})
+    getCategories(sortDto:ICategorySort = {column: 'createdAt', sort: 'desc'}) {
+        collectionData(
+            query(
+                collection(this.fireStore, 'categories'), 
+                orderBy(sortDto.column, sortDto.sort)
+            ), 
+            { idField: 'id'}
+        )
         .pipe(
             shareReplay(),
-            tap(res => {
-                this.categories$.next(<ICategory[]>res);
-            })
-        );
-    }
+            tap(() => console.log('firebase get categories!')),
+            tap(res => this.categories$.next(<ICategory[]>res))
+        )
+        .subscribe();
 
-    getCategories() {
         return this.categories$.asObservable();
     }
 
     createCategory(title: string) {
         const createdAt = Timestamp.now();
-        return of(addDoc(collection(this.fireStore, 'categories'), { title, createdAt }))
+        return from(addDoc(collection(this.fireStore, 'categories'), { title, createdAt }))
             .pipe(
                 take(1)
             );
     }
 
     updateCategory(category: ICategory) {
-        return of(updateDoc(doc(this.fireStore, 'categories', category.id), {  
+        return from(updateDoc(doc(this.fireStore, 'categories', category.id), {  
             title: category.title,
             createdAt: category.createdAt
         }))
@@ -49,7 +53,7 @@ export class CategoryService {
     }
 
     deleteCategory(id: string) {
-        return of(deleteDoc(doc(this.fireStore, 'categories', id)))
+        return from(deleteDoc(doc(this.fireStore, 'categories', id)))
             .pipe(
                 take(1)
             );

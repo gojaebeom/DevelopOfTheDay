@@ -21,14 +21,7 @@ export class CategoryManagerContainers implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.categoryService.initCategories().subscribe();
-    
-    this.categories$ = this.categoryService.getCategories().pipe(
-      tap(res => {
-        console.log('--------------------')
-        console.log(res)
-      })
-    );
+    this.categories$ = this.categoryService.getCategories();
   }
 
   onCreateCategory() {

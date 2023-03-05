@@ -2,11 +2,16 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
 
 import { CategoryManagerContainers } from 'src/app/containers/category-manager/category-manager.containers';
+import { PostManagerContainers } from 'src/app/containers/post-manager/post-manager.containers';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [CommonModule, CategoryManagerContainers],
+  imports: [
+    CommonModule, 
+    CategoryManagerContainers,
+    PostManagerContainers
+  ],
   templateUrl: './admin.page.html'
 })
 export class AdminPage implements AfterViewInit{

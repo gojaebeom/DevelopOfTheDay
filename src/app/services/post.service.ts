@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { collectionData, CollectionReference, DocumentData, Firestore, orderBy, query, Timestamp } from "@angular/fire/firestore";
+import { collectionData, Firestore, orderBy, query, Timestamp } from "@angular/fire/firestore";
 import { collection } from "@firebase/firestore";
 
 import { BehaviorSubject, from, shareReplay, tap } from "rxjs";
@@ -15,17 +15,21 @@ export class PostService {
         private readonly fireStore: Firestore
     ) { }
 
-    initPosts(sortDto: IPostSort = { column: 'createdAt', sort: 'desc'}) {
-        return from(collectionData(query(collection(this.fireStore, 'posts'), orderBy(sortDto.column, sortDto.sort))))
-            .pipe(
-                shareReplay(),
-                tap(res => {
-                    this.posts$.next(<IPost[]>res);
-                })
-            )
-    }
-
-    getPosts() {
+    getAllPosts(sortDto: IPostSort = { column: 'createdAt', sort: 'desc'}) {
+        collectionData(
+            query(
+                collection(this.fireStore, 'posts'), 
+                orderBy(sortDto.column, sortDto.sort)
+            ), 
+            {idField: 'id'}
+        )
+        .pipe(
+            shareReplay(),
+            tap(() => console.log('firebase get posts!')),
+            tap(res => this.posts$.next(<IPost[]>res))
+        )
+        .subscribe();
+        
         return this.posts$.asObservable();
     }
 }
@@ -34,6 +38,7 @@ export interface IPost {
     id: string;
     categoryId: string;
     title: string;
+    content: string;
     description: string;
     markDownURL: string;
     createdAt: Timestamp;
