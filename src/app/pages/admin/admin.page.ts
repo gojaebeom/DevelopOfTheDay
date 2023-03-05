@@ -1,16 +1,14 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
-
-import { CategoryManagerContainers } from 'src/app/containers/category-manager/category-manager.containers';
-import { PostManagerContainers } from 'src/app/containers/post-manager/post-manager.containers';
+import { ActivatedRoute, ActivationEnd, NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter, tap } from 'rxjs';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
   imports: [
     CommonModule, 
-    CategoryManagerContainers,
-    PostManagerContainers
+    RouterModule,
   ],
   templateUrl: './admin.page.html'
 })
@@ -19,7 +17,9 @@ export class AdminPage implements AfterViewInit{
   selectedTab: SelectedTab = 'CATEGORY';
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {  }
 
   ngAfterViewInit(): void {
@@ -39,28 +39,30 @@ export class AdminPage implements AfterViewInit{
       tabActiveBox.style.left =  buttons[0].offsetLeft + 'px';
     });
 
-    buttons.forEach(button => {
-      button.addEventListener('click', event => {
-        const button = (event.target) as HTMLButtonElement;
-        tabActiveBox.style.width = button.offsetWidth + 'px';
-        tabActiveBox.style.left = button.offsetLeft + 'px';
-
-
-        switch(button.dataset['id']) {
-          case 'CATEGORY': 
-            this.selectedTab = 'CATEGORY';
-            return;
-          case 'POST': 
-            this.selectedTab = 'POST';
-            return;
-          case 'MUSIC': 
-            this.selectedTab = 'MUSIC';
-            return;
-          default:
-            return;
-        }
-      })
-    });
+    this.route.url
+      .pipe(
+        tap(() => {
+          const type = this.router.url.split('admin/').pop();
+          
+          switch(type) {
+            case 'category-manager': 
+              tabActiveBox.style.width =  buttons[0].offsetWidth + 'px';
+              tabActiveBox.style.left =  buttons[0].offsetLeft + 'px';
+              return;
+            case 'post-manager': 
+              tabActiveBox.style.width =  buttons[1].offsetWidth + 'px';
+              tabActiveBox.style.left =  buttons[1].offsetLeft + 'px';
+              return;
+            case 'music-manager': 
+              tabActiveBox.style.width =  buttons[2].offsetWidth + 'px';
+              tabActiveBox.style.left =  buttons[2].offsetLeft + 'px';
+              return;
+            default:
+              return;
+          }
+        })
+      )
+      .subscribe();
   }
 }
 

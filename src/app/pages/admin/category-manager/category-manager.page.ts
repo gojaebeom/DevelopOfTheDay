@@ -10,9 +10,9 @@ import { allowKoEngNumber } from 'src/app/utils/regex';
   selector: 'app-category-manager',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './category-manager.containers.html',
+  templateUrl: './category-manager.page.html',
 })
-export class CategoryManagerContainers implements OnInit {
+export class CategoryManagerPage implements OnInit {
 
   categories$!: Observable<ICategory[]>;
 

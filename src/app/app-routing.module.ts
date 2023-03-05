@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AdminPage } from './pages/admin/admin.page';
+import { CategoryManagerPage } from './pages/admin/category-manager/category-manager.page';
+import { PostManagerPage } from './pages/admin/post-manager/post-manager.page';
 import { HomePage } from './pages/home/home.page';
 import { MenuPage } from './pages/menu/menu.page';
 
@@ -16,7 +18,22 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminPage
+    pathMatch: 'full',
+    redirectTo: 'admin/category-manager'
+  },
+  {
+    path: 'admin',
+    component: AdminPage,
+    children: [
+      {
+        path: 'category-manager',
+        component: CategoryManagerPage
+      },
+      {
+        path: 'post-manager',
+        component: PostManagerPage
+      },
+    ]
   },
 ];
 
