@@ -1,0 +1,21 @@
+<div class="font-p">
+    <div class="font-c text-xl md:text-2xl 2xl:text-3xl">Blog Manager ⚙️</div>
+
+    <div class="relative h-[40px] md:h-[50px] bg-[#2a2551] rounded-lg md:rounded-xl mt-4">
+        <div id="tabActiveBox" class="absolute left-0 h-full w-[34%] bg-[#3a3471] rounded-lg md:rounded-xl border-4 border-[#2a2551] transition-all delay-75"></div>
+        <div id="tabButtonBox" class="absolute w-full h-full font-p flex justify-around text-sm md:text-lg text-gray-300">
+            <button class="flex-1" data-id="CATEGORY">카테고리</button>
+            <button class="flex-1" data-id="POST">포스트</button>
+            <button class="flex-1" data-id="MUSIC">음악</button>
+        </div>
+    </div>
+
+    <app-category-manager *ngIf="selectedTab === 'CATEGORY'"></app-category-manager>
+
+    <div *ngIf="selectedTab === 'POST'">
+        포스트 관리
+    </div>
+    <div *ngIf="selectedTab === 'MUSIC'">
+        음악 관리
+    </div>
+</div>

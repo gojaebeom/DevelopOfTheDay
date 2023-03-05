@@ -1,0 +1,12 @@
+.content::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-color: #161234;
+    z-index: -1;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    @apply shadow-2xl;
+}

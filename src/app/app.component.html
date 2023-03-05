@@ -1,0 +1,61 @@
+<!-- BACKGROUND THEME WRAP -->
+<div class="relative h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 p-20 text-white">
+
+  <!-- BACKGROUND ITEMS -->
+  <img src="assets/images/party.png" class="absolute left-20 top-20 w-32 h-32" />
+
+  <!-- BACKGROUND BLUR WRAP -->
+  <div class="fixed inset-0 flex flex-col items-center justify-start backdrop-blur-sm overflow-y-auto overflow-hidden">
+
+    <!-- APP WRAP  -->
+    <div class="w-full lg:max-w-[800px] 2xl:max-w-[1200px] p-1 md:p-4">
+
+      <!-- HEADER -->
+      <header class="px-2 my-4 2xl:my-6">
+        <div class="flex justify-between">
+          <div class="flex items-start">
+            <!-- SIDE MENU BUTTON -->
+            <a class="mr-4" routerLink="/menu">
+              <i class="fa-solid fa-bars text-lg md:text-xl"></i>
+            </a>
+            <a routerLink="/" class="font-c text-xl md:text-2xl">
+              <div>Develop of</div>
+              <div class="flex items-center">
+                  <div class="mr-2">the day</div>
+                  <img src="assets/images/cheese.png" class="w-4 h-4 md:w-6 md:h-6">
+              </div>
+          </a>
+          </div>
+
+          <div>
+              <a href="https://gitlab.com/const.gjb" target="_blank" class="mr-6">
+                  <i class="fa-brands fa-gitlab text-lg md:text-xl"></i>
+              </a>
+              <a href="" target="_blank">
+                  <i class="fa-brands fa-github-alt text-lg md:text-xl"></i>
+              </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- VIRTAUL ELEMENT WRAP -->
+      <div class="relative h-auto content">
+
+        <!-- APP CONTENT -->
+        <div class="min-h-screen bg-[#1e1a3d] rounded-[15px_225px_15px_255px/255px_15px_225px_15px] shadow-2xl p-6 md:p-10 lg:p-16 fond-d text-gray-200">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="mt-4 mb-0 2xl:my-10 text-sm md:text-base 2xl:text-xl font-c pl-2">
+        <div class="flex justify-start items-center">
+          <span class="mr-2">Created By Goraebob</span>
+          <div>
+            <img src="assets/images/party.png" alt="party image" class="w-4 h-4 md:w-6 md:h-6 mb-2">
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>

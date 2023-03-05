@@ -1,0 +1,23 @@
+<table class="table-fixed w-full text-xs md:text-base overflow-hidden mt-4 md:mt-6">
+    <thead class="[&_th]:text-start [&_th]:p-2 w-full">
+        <tr class="border-b border-gray-500">
+            <th>아이디</th>
+            <th>제목</th>
+            <th>생성일</th>
+            <th class="!text-right text-orange-500">
+                <button (click)="onCreateCategory()">생성 🍑</button>
+            </th>
+        </tr>
+    </thead>
+    <tbody class="w-full">
+        <tr *ngFor="let category of categories$|async" class="[&>td]:p-2 [&>td]:truncate border-b border-gray-500">
+            <td class="text-xs" [title]="category.id">{{category.id}}</td>
+            <td [title]="category.title">{{category.title}}</td>
+            <td>{{category.createdAt.toDate()|date}}</td>
+            <td class="text-right">
+                <button (click)="onUpdateCategory(category)" class="mr-2">수정</button>
+                <button (click)="onDeleteCategory(category.id)">삭제</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

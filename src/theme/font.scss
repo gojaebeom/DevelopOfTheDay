@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'pretendard';
+    src: url('../assets/fonts/Pretendard-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'dodum';
+    src: url('../assets/fonts/GowunDodum-Regular.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'ceraround';
+    src: url('../assets/fonts/Fontspring-DEMO-ceraroundpro-bold.otf') format('opentype');
+}
+
+.font-p {
+    font-family: 'pretendard', sans-serif;
+}
+
+.font-d {
+    font-family: 'dodum', sans-serif;
+}
+
+.font-c {
+    font-family: 'ceraround', sans-serif;
+}
+
+body {
+    font-family: 'pretendard', sans-serif;
+}
+
