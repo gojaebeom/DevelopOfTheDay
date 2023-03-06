@@ -1,5 +1,52 @@
 
-<button class="text-blue-500" (click)="onClose()">포스트 폼 가리기</button>
-<div >
-    포스트 생성
-</div>
+<ng-container *ngIf="(theme.getThemeSystem()|async) as theme">
+    <button class="text-blue-500" (click)="onClose()">포스트 폼 가리기</button>
+    <div class="{{theme.textSecondary}}">
+        <div class="flex flex-col lg:flex-row">
+            <div class="flex flex-col w-full lg:mr-4">
+                <label>제목</label>
+                <input type="text" class="border {{theme.border}} {{theme.bgSecondary}} rounded-xl p-4 h-16 w-full" placeholder="포스트 제목을 입력해주세요" formControlName="title">
+            </div>
+            <div class="flex flex-col w-full">
+                <label>카테고리 선택</label>
+                <select type="text" [selectedIndex]="0" class="border {{theme.border}} {{theme.bgSecondary}} rounded-xl p-4 h-16 w-full" placeholder="포스트 제목을 입력해주세요" formControlName="categoryId">
+                    <option [value]="null">카테고리를 선택하세요.</option>
+                    <option *ngFor="let category of categories$|async" [value]="category.id">{{category.title}}</option>
+                </select>
+            </div>
+        </div>
+    
+        <div>
+            <label>설명</label>
+            <textarea placeholder="게시물 목록에서 보일 본문 내용의 일부를 작성하세요." class="border {{theme.border}} {{theme.bgSecondary}} rounded-xl p-4 w-full" rows="2" formControlName="description"></textarea>
+        </div>
+        
+    
+        <div>
+            <label>본문 이미지 추가</label>
+            <label class="font-dot cursor-pointer w-full border-x-2 border-sky-600 bg-sky-400 rounded-2xl p-4 shadow-system shadow-sky-600 transition-all duration-200 active:translate-y-[8px] active:shadow-none flex justify-center items-center">
+                <span class="text-white">Image Select 🌠</span>
+                <input type="file" class="hidden" (change)="onUploadImage($event)" accept="image/png, image/jpeg, image/jpg, image/webp, image/gif">
+            </label>
+            <div class="text-red-400 mt-4">* 이미지 URL이 생성되면 텍스트 영역을 클릭하여 복사하고 에디터에 붙여 넣으세요.</div>
+            <!-- <div class="p-2 rounded-xl bg-gray-100 text-xs mt-2" *ngFor="let image of uploadedImages" >
+                <div class="w-full text-end">
+                    <span class="p-4 text-red-400 cursor-pointer" (click)="removeImageFile(image)">이미지 제거</span>
+                </div>
+                <div class="cursor-pointer hover:text-blue-500" (click)="copyToClipboard(image)">{{image}}</div>
+            </div> -->
+        </div>
+    
+        <div class="NgxEditor__Wrapper mt-4">
+            <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
+            <ngx-editor [editor]="editor" [placeholder]="'Type here...'" formControlName="content"></ngx-editor>
+        </div>
+    
+        <button  class="font-dot cursor-pointer w-full border {{theme.border}} {{theme.bgSecondary}} rounded-2xl p-4 shadow-system transition-all duration-200 active:translate-y-[8px] active:shadow-none flex justify-center mt-10">
+            Post Upload
+            <!-- <input id="markDownFile" type="file" class="hidden" (change)="onMarkDownFileSelected($event)" accept=".md"> -->
+        </button>
+    </div>
+</ng-container>
+
+

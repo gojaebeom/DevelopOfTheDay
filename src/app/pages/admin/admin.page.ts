@@ -2,6 +2,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, ActivationEnd, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, fromEvent, tap } from 'rxjs';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-admin',
@@ -15,9 +16,10 @@ import { filter, fromEvent, tap } from 'rxjs';
 export class AdminPage implements AfterViewInit {
 
   constructor(
+    public readonly theme: ThemeService,
     @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly router: Router,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
   ) { }
 
   ngAfterViewInit(): void {
