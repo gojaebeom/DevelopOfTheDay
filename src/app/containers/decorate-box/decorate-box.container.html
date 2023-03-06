@@ -1,0 +1,36 @@
+<ng-container *ngIf="(theme.getThemeSystem()|async) as theme">
+    <ng-container *ngIf="(handler.isOpened()|async) as isOpened">
+        <div class="fixed bottom-0 left-0 z-50 flex justify-end w-full p-4 md:p-10 md:pr-20">
+            <!-- DECORATE BOX WRAP -->
+            <div id="decorateBox" class="shadow-lg {{ theme.bgSecondary }} {{ theme.textPrimary }} w-auto h-auto text-xs border border-gray-500 rounded-xl transition-all duration-200">
+                <!-- OPEN DECORATE BOX -->
+                <div class="flex flex-col min-w-[280px] p-4" [ngClass]="{'hidden': isOpened === 'close'}">
+                    <div class="mb-4">테마 선택</div>
+                    <div class="flex">
+                        <div class="flex flex-col items-center flex-1">
+                            <button class="w-10 h-10 rounded-full bg-gradient-to-br from-[#f7e3cf]  to-[#edf8ec]" (click)="onChangeTheme('HANAMI')"></button>
+                            <div class="mt-2">하나미</div>
+                        </div>
+                        <div class="flex flex-col items-center flex-1">
+                            <button class="w-10 h-10 rounded-full bg-gradient-to-br from-[#bfbedc]  to-[#d8e5ec]" (click)="onChangeTheme('RAIN_CLOUD')"></button>
+                            <div class="mt-2">비구름</div>
+                        </div>
+                        <div class="flex flex-col items-center flex-1">
+                            <button class="w-10 h-10 rounded-full bg-gradient-to-br from-[#f9d99a]  to-[#f6c2ab]" (click)="onChangeTheme('TWILIGHT')"></button>
+                            <div class="mt-2">어스름</div>
+                        </div>
+                        <div class="flex flex-col items-center flex-1">
+                            <button class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900" (click)="onChangeTheme('MID_NIGHT')"></button>
+                            <div class="mt-2">미드나이트</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- CLOSE DECORATE BOX -->
+                <div  class="flex items-center justify-center w-10 h-10 p-4" [ngClass]="{'hidden': isOpened === 'open'}">
+                    <i class="text-xl pointer-events-none fa-solid fa-sliders"></i>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>
