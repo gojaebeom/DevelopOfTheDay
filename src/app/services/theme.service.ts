@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 
@@ -8,31 +9,58 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ThemeService {
 
+    private showThemePriview$ = new BehaviorSubject<boolean>(false);
+
     private themeSystem$ = new BehaviorSubject<IThemeSystem>({
         bgPrimary: 'bg-gradient-to-tr from-[#f7e3cf] to-[#edf8ec]',
         bgSecondary: 'bg-white',
-        bgTertiary: 'bg-gray-200',
+        bgTertiary: 'bg-gray-100',
         textPrimary: 'text-neutral-700',
         textSecondary: 'text-neutral-700',
         textTertiary: 'text-neutral-700',
-        border: 'order-gray-200',
+        border: 'border-gray-100',
     });
+
+    constructor(
+        @Inject(PLATFORM_ID) private readonly platformId: Object
+    ) {
+        if(!isPlatformBrowser(this.platformId)) {
+            return;
+        }
+
+        const theme = <Theme>window.localStorage.getItem('theme');
+        if(!theme) {
+            this.showThemePriview$.next(true);
+            return;
+        }
+        this.changeTheme(theme);
+        this.showThemePriview$.next(false);
+    }
 
     getThemeSystem() {
         return this.themeSystem$.asObservable();
     }
 
-    changeTheme(theme: Theme) {
+    showThemePreview() {
+        return this.showThemePriview$.asObservable();
+    }
+
+    changeTheme(theme: Theme, { canSave }:{ canSave: boolean } = {canSave : true}) {
+        if(canSave) {
+            window.localStorage.setItem('theme', theme);
+            this.showThemePriview$.next(false);
+        }
+
         switch(theme) {
             case 'HANAMI' : 
                 this.themeSystem$.next({
                     bgPrimary: 'bg-gradient-to-tr from-[#f7e3cf] to-[#edf8ec]',
                     bgSecondary: 'bg-white',
-                    bgTertiary: 'bg-gray-200',
+                    bgTertiary: 'bg-gray-100',
                     textPrimary: 'text-neutral-700',
                     textSecondary: 'text-neutral-700',
                     textTertiary: 'text-neutral-700',
-                    border: 'order-gray-200',
+                    border: 'border-gray-100',
                 });
                 return; 
             case 'RAIN_CLOUD' : 

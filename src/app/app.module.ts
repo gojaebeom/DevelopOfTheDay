@@ -10,6 +10,7 @@ import { DecorateBoxContainer } from './containers/decorate-box/decorate-box.con
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ModalModule } from './containers/modal/modal.module';
+import { ThemePreviewContainer } from './containers/theme-preview/theme-preview.container';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,9 @@ import { ModalModule } from './containers/modal/modal.module';
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
-    DecorateBoxContainer,
     ModalModule,
+    DecorateBoxContainer,
+    ThemePreviewContainer,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage())

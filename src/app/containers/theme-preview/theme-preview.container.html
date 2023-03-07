@@ -1,0 +1,38 @@
+<ng-container *ngIf="theme$|async as theme">
+    <div [ngClass]="{'opacity-0 pointer-events-none': !(showThemePriview$|async)}" class="visible fixed inset-0 z-50 transition-all duration-300">
+        <div class="{{theme.bgPrimary}} {{theme.textPrimary }} w-full h-full flex items-center justify-center transition-all duration-300 delay-75">
+            <div class="font-p mb-20 font-bold">
+                <div class="w-full text-center">
+                    <div class="text-2xl md:text-3xl">
+                        끌리는 테마를 선택해주세요 😄
+                    </div>
+                    <div class="text-xs">
+                        나중에 언제든지 변경할 수 있어요~
+                    </div>
+                </div>
+                <div class="flex text-sm mt-6 md:mt-10 [&>div]:md:mx-6">
+                    <div class="flex flex-col items-center flex-1">
+                        <button class="border-2 border-gray-300 w-10 h-10 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-[#f7e3cf]  to-[#edf8ec]" (click)="onChangeTheme('HANAMI')"></button>
+                        <div class="mt-2">하나미</div>
+                    </div>
+                    <div class="flex flex-col items-center flex-1">
+                        <button class="border-2 border-gray-300 w-10 h-10 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-[#bfbedc]  to-[#d8e5ec]" (click)="onChangeTheme('RAIN_CLOUD')"></button>
+                        <div class="mt-2">비구름</div>
+                    </div>
+                    <div class="flex flex-col items-center flex-1">
+                        <button class="border-2 border-gray-300 w-10 h-10 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-[#f9d99a]  to-[#f6c2ab]" (click)="onChangeTheme('TWILIGHT')"></button>
+                        <div class="mt-2">어스름</div>
+                    </div>
+                    <div class="flex flex-col items-center flex-1">
+                        <button class="border-2 border-gray-300 w-10 h-10 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900" (click)="onChangeTheme('MID_NIGHT')"></button>
+                        <div class="mt-2">미드나이트</div>
+                    </div>
+                </div>
+                <div class="text-center mt-6 hover:text-blue-600">
+                    <button class="text-xl md:text-2xl" (click)="onPickMyTheme()">선택</button>
+                </div>
+            </div>
+        </div>        
+    </div>
+
+</ng-container>
