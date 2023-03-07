@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { collectionData, Firestore, orderBy, query, Timestamp } from "@angular/fire/firestore";
+import { addDoc, collectionData, Firestore, orderBy, query, Timestamp } from "@angular/fire/firestore";
 import { collection } from "@firebase/firestore";
 
-import { BehaviorSubject, from, shareReplay, tap } from "rxjs";
+import { BehaviorSubject, from, shareReplay, take, tap } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -32,6 +32,23 @@ export class PostService {
         
         return this.posts$.asObservable();
     }
+
+    create(post: Partial<IPost>) {
+        const result = {
+            categoryId: post.categoryId,
+            title: post.title,
+            description: post.description,
+            content: post.content,
+            createdAt: Timestamp.now()
+        };
+        return from(
+            addDoc(
+                collection(this.fireStore, 'posts'), 
+                result
+            )
+        )
+        .pipe(take(1));
+    }
 }
 
 export interface IPost {
@@ -40,7 +57,6 @@ export interface IPost {
     title: string;
     content: string;
     description: string;
-    markDownURL: string;
     createdAt: Timestamp;
 }
 

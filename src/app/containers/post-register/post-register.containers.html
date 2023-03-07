@@ -1,6 +1,6 @@
 
 <ng-container *ngIf="(theme.getThemeSystem()|async) as theme">
-    <div class="text-neutral-600 p-4 pb-10">
+    <form [formGroup]="formGroup" (submit)="formSubmit()" class="text-neutral-600 p-4 pb-10">
         <div class="flex flex-col lg:flex-row">
             <div class="flex flex-col w-full lg:mr-4 mt-2">
                 <label class="text-sm">제목</label>
@@ -43,13 +43,14 @@
     
         <div class="NgxEditor__Wrapper mt-6">
             <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
-            <ngx-editor [editor]="editor" [placeholder]="'멋진 글을 작성하세요'" class="font-d"></ngx-editor>
+            <ngx-editor [editor]="editor" [placeholder]="'멋진 글을 작성하세요'" class="font-d" formControlName="content"></ngx-editor>
         </div>
     
-        <button class="text-white flex justify-center items-center w-full p-4 rounded-xl font-c bg-gray-700 shadow-[0px_8px_0px] shadow-gray-900 active:translate-y-[8px] active:shadow-[0px_0px_0px] transition-all duration-200 mt-16">
+        <button class="text-white flex justify-center items-center w-full p-4 rounded-xl font-c bg-gray-700 shadow-[0px_8px_0px] shadow-gray-900 active:translate-y-[8px] active:shadow-[0px_0px_0px] transition-all duration-200 mt-16"
+        >
             POST UPLOAD
         </button>
-    </div>
+    </form>
 </ng-container>
 
 

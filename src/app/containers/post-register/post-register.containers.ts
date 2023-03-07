@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-import { Editor, NgxEditorModule } from 'ngx-editor';
+import { Editor, NgxEditorModule, toHTML } from 'ngx-editor';
 
 import { Observable } from 'rxjs';
 
 import { CategoryService, ICategory } from 'src/app/services/category.service';
+import { PostService } from 'src/app/services/post.service';
 import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
@@ -13,24 +15,35 @@ import { ThemeService } from 'src/app/services/theme.service';
   standalone: true,
   imports: [
     CommonModule,
-    NgxEditorModule
+    NgxEditorModule,
+    ReactiveFormsModule
   ],
   templateUrl: './post-register.containers.html'
 })
 export class PostRegisterContainers implements OnInit, AfterViewInit, OnDestroy {
 
-  editor!: Editor;
   categories$!:Observable<ICategory[]>;
+
+  editor!: Editor;
+  formGroup!: FormGroup;
+  
 
   constructor(
       public readonly theme: ThemeService,
-      private readonly categoryService: CategoryService
+      private readonly categoryService: CategoryService,
+      private readonly postService: PostService
   ) { }
 
   ngOnInit(): void {
     this.editor = new Editor();
-
     this.categories$ = this.categoryService.getCategories();
+
+    this.formGroup = new FormGroup({
+      title: new FormControl(),
+      description: new FormControl(),
+      categoryId: new FormControl(),
+      content: new FormControl()
+    });
   }
 
   ngAfterViewInit(): void {
@@ -73,5 +86,14 @@ export class PostRegisterContainers implements OnInit, AfterViewInit, OnDestroy 
     }
 
     console.log(result);
+  }
+
+  formSubmit() {
+    console.log(this.formGroup.get('content')?.value);
+
+    const formData = this.formGroup.getRawValue();
+    formData.content = toHTML(formData.content);
+
+    this.postService.create(formData).subscribe();
   }
 }
