@@ -1,3 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./theme/tailwind.scss";
 @import "./theme/font.scss";
+
+.NgxEditor {
+    @apply text-neutral-700 p-2;
+
+    h1,h2,h3 {
+        @apply font-bold mt-6 mb-4;
+    }
+    h1 {
+        @apply text-2xl lg:text-3xl
+    }
+    h2 {
+        @apply text-xl lg:text-2xl;
+    }
+    h3 {
+        @apply text-lg lg:text-xl;
+    }
+    p {
+        @apply mb-4 lg:mb-4 lg:text-xl;
+    }
+    ul,ol {
+        @apply  pl-6;
+    }
+    ul {
+        @apply list-disc;
+    }
+    ol {
+        @apply list-decimal;
+    }
+    strong {
+        @apply font-black;
+    }
+    img {
+        @apply rounded-md;
+    }
+}

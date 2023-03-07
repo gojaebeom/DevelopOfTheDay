@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Editor, NgxEditorModule } from 'ngx-editor';
-import { Observable } from 'rxjs';
-import { CategoryService, ICategory } from 'src/app/services/category.service';
 
-import { PostRegisterHandlerService } from 'src/app/services/post-register-handler.service';
+import { Observable } from 'rxjs';
+
+import { CategoryService, ICategory } from 'src/app/services/category.service';
 import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
@@ -17,24 +17,28 @@ import { ThemeService } from 'src/app/services/theme.service';
   ],
   templateUrl: './post-register.containers.html'
 })
-export class PostRegisterContainers implements OnInit{
+export class PostRegisterContainers implements OnInit, AfterViewInit, OnDestroy {
 
   editor!: Editor;
   categories$!:Observable<ICategory[]>;
 
   constructor(
       public readonly theme: ThemeService,
-      private readonly postRegisterHandler: PostRegisterHandlerService,
       private readonly categoryService: CategoryService
   ) { }
 
   ngOnInit(): void {
     this.editor = new Editor();
+
     this.categories$ = this.categoryService.getCategories();
   }
 
-  onClose() {
-    this.postRegisterHandler.close();
+  ngAfterViewInit(): void {
+    
+  }
+
+  ngOnDestroy(): void {
+    this.editor.destroy();
   }
 
   onUploadImage(event: any) {

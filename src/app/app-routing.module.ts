@@ -23,15 +23,18 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    component: AdminPage,
+    loadComponent: () => import('./pages/admin/admin.page').then(c => c.AdminPage),
+    data: {ssr: false},
     children: [
       {
         path: 'category-manager',
-        component: CategoryManagerPage
+        component: CategoryManagerPage,
+        data: {ssr: false},
       },
       {
         path: 'post-manager',
-        component: PostManagerPage
+        component: PostManagerPage,
+            data: {ssr: false},
       },
     ]
   },

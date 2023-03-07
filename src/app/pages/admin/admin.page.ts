@@ -1,7 +1,9 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, ActivationEnd, NavigationEnd, Router, RouterModule } from '@angular/router';
-import { filter, fromEvent, tap } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+
+import { fromEvent, tap } from 'rxjs';
+
 import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
@@ -17,16 +19,11 @@ export class AdminPage implements AfterViewInit {
 
   constructor(
     public readonly theme: ThemeService,
-    @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
   ) { }
 
   ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
     fromEvent(window, 'resize')
       .pipe(
         tap(() => this.changeTabActiveBox())

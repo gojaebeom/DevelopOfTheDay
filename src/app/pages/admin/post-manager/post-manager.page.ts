@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { IPost, PostService } from 'src/app/services/post.service';
 import { PostRegisterContainers } from 'src/app/containers/post-register/post-register.containers';
-import { PostRegisterHandlerService } from 'src/app/services/post-register-handler.service';
+import { ModalHandlerService } from 'src/app/services/modal-handler.service';
+import { IPost, PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-post-manager',
   standalone: true,
   imports: [CommonModule, PostRegisterContainers],
-  providers: [PostRegisterHandlerService],
   templateUrl: './post-manager.page.html'
 })
 export class PostManagerPage implements OnInit{
@@ -21,16 +20,17 @@ export class PostManagerPage implements OnInit{
 
   constructor(
     private readonly postService: PostService,
-    private readonly postRegisterHandler: PostRegisterHandlerService
+    private readonly modalHandler: ModalHandlerService
   ) {}
 
   ngOnInit(): void {
     this.posts$ = this.postService.getAllPosts();
-    this.isOpened$ = this.postRegisterHandler.isOpened();
   }
 
   onCreatePost() {
-    this.postRegisterHandler.open();
+    this.modalHandler.open({
+      component: PostRegisterContainers
+    });
   }
 
   onUpdatePost() {

@@ -9,13 +9,13 @@ import { BehaviorSubject } from 'rxjs';
 export class ThemeService {
 
     private themeSystem$ = new BehaviorSubject<IThemeSystem>({
-        bgPrimary: 'bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900',
-        bgSecondary: 'bg-[#252048]',
-        bgTertiary: 'bg-[#161234]',
-        textPrimary: 'text-white',
-        textSecondary: 'text-gray-200',
-        textTertiary: 'text-gray-200',
-        border: 'border-[#161234]'
+        bgPrimary: 'bg-gradient-to-tr from-[#f7e3cf] to-[#edf8ec]',
+        bgSecondary: 'bg-white',
+        bgTertiary: 'bg-gray-200',
+        textPrimary: 'text-neutral-700',
+        textSecondary: 'text-neutral-700',
+        textTertiary: 'text-neutral-700',
+        border: 'order-gray-200',
     });
 
     getThemeSystem() {

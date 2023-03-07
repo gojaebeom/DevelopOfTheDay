@@ -10,38 +10,42 @@ export class DecorateBoxHandlerService {
 
     private isOpen$ = new BehaviorSubject<string>('close');
 
+    constructor() {}
+
     isOpened() {
         return this.isOpen$.asObservable();
     }
 
     toggleObserver() {
-        fromEvent(document, 'click')
-            .pipe(
-                tap((event:any) => {
-                    let target = event.target;
+        document.addEventListener('click', (event:any) => {
+            let target = event.target;
 
-                    const decorateBox = document.querySelector('#decorateBox');
-                    if(!decorateBox){
-                        return;
-                    }
+            const decorateBox = document.querySelector('#decorateBox');
+            if(!decorateBox){
+                return;
+            }
 
-                    while(true) {
-                        if(target !== decorateBox) {
-                            target = target.parentNode;
-                        } 
+            while(true) {
+                if(target !== decorateBox) {
+                    target = target.parentNode;
+                } 
 
-                        if(target === document.body) {
-                            this.isOpen$.next('close');
-                            return;
-                        }
+                if(!target) {
+                    this.isOpen$.next('close');
+                    return;
+                }
 
-                        if(target === decorateBox) {
-                            this.isOpen$.next('open');
-                            return;
-                        }
-                    }
-                })
-            )
-            .subscribe();
+                if(target === document.body) {
+                    this.isOpen$.next('close');
+                    return;
+                }
+
+                if(target === decorateBox) {
+                    this.isOpen$.next('open');
+                    return;
+                }
+            }
+
+        });
     }
 }
