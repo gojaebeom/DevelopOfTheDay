@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { CategoryService, ICategory } from 'src/app/services/category.service';
 import { allowKoEngNumber } from 'src/app/utils/regex';

@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 import { BehaviorSubject, fromEvent, tap } from 'rxjs';
 
@@ -10,13 +11,19 @@ export class DecorateBoxHandlerService {
 
     private isOpen$ = new BehaviorSubject<string>('close');
 
-    constructor() {}
+    constructor(
+        @Inject(PLATFORM_ID) private readonly platformId: Object
+    ) {}
 
     isOpened() {
         return this.isOpen$.asObservable();
     }
 
     toggleObserver() {
+        if(!isPlatformBrowser(this.platformId)) {
+            return;
+        }
+
         document.addEventListener('click', (event:any) => {
             let target = event.target;
 
