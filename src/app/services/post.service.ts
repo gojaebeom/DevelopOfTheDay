@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { addDoc, collectionData, Firestore, orderBy, query, Timestamp } from "@angular/fire/firestore";
+import { addDoc, collectionData, deleteDoc, doc, Firestore, orderBy, query, Timestamp } from "@angular/fire/firestore";
 import { collection } from "@firebase/firestore";
 
 import { BehaviorSubject, from, map, shareReplay, take, tap } from "rxjs";
@@ -33,7 +33,7 @@ export class PostService {
         return this.posts$.asObservable();
     }
 
-    create(post: Omit<IPost, 'id'|'createdAt'>) {
+    createPost(post: Omit<IPost, 'id'|'createdAt'>) {
         const result = <Omit<IPost, 'id'>>{
             ...post,
             createdAt: Timestamp.now()
@@ -48,6 +48,13 @@ export class PostService {
             take(1),
             map((res) => res.id)
         );
+    }
+
+    deletePost(id: string) {
+        return from(deleteDoc(doc(this.fireStore, 'posts', id)))
+            .pipe(
+                take(1)
+            );
     }
 }
 

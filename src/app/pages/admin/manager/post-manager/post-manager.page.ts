@@ -34,11 +34,11 @@ export class PostManagerPage implements OnInit{
     });
   }
 
-  onUpdatePost() {
-
-  }
-
   onDeletePost(id: string) {
-
+    const result = window.confirm('포스트를 삭제하시겠습니까?');
+    if(!result) {
+      return;
+    }
+    this.postService.deletePost(id).subscribe();
   }
 }

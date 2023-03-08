@@ -15,7 +15,7 @@
             <td [title]="post.title">{{post.title}}</td>
             <td>{{post.createdAt.toDate()|date}}</td>
             <td class="text-right">
-                <button (click)="onUpdatePost()" class="mr-2">수정</button>
+                <button [routerLink]="['/admin/post-register', post.id]" class="mr-2">수정</button>
                 <button (click)="onDeletePost(post.id)">삭제</button>
             </td>
         </tr>

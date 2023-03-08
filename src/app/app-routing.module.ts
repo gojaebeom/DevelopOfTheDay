@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { CategoryManagerPage } from './pages/admin/category-manager/category-manager.page';
-import { PostManagerPage } from './pages/admin/post-manager/post-manager.page';
+import { CategoryManagerPage } from './pages/admin/manager/category-manager/category-manager.page';
+import { ManagerPage } from './pages/admin/manager/manager.page';
+import { PostManagerPage } from './pages/admin/manager/post-manager/post-manager.page';
 import { PostRegisterPage } from './pages/admin/post-register/post-register.page';
 import { HomePage } from './pages/home/home.page';
 import { MenuPage } from './pages/menu/menu.page';
@@ -18,29 +19,41 @@ const routes: Routes = [
   },
   {
     path: 'admin',
-    pathMatch: 'full',
-    redirectTo: 'admin/category-manager',
-  },
-  {
-    path: 'admin',
     loadComponent: () =>
       import('./pages/admin/admin.page').then((c) => c.AdminPage),
     data: { ssr: false },
     children: [
       {
-        path: 'category-manager',
-        component: CategoryManagerPage,
-        data: { ssr: false },
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'manager',
       },
       {
-        path: 'post-manager',
-        component: PostManagerPage,
-        data: { ssr: false },
+        path: 'manager',
+        component: ManagerPage,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'posts'
+          },
+          {
+            path: 'posts',
+            component: PostManagerPage
+          },
+          {
+            path: 'categories',
+            component: CategoryManagerPage
+          },
+        ]
       },
       {
         path: 'post-register',
-        component: PostRegisterPage,
-        data: { ssr: false },
+        component: PostRegisterPage
+      },
+      {
+        path: 'post-register/:id',
+        component: PostRegisterPage
       },
     ],
   },

@@ -118,7 +118,7 @@ export class PostRegisterPage implements OnInit {
     
     formData.content = toHTML(formData.content);
     
-    this.postService.create(formData)
+    this.postService.createPost(formData)
       .pipe(
         switchMap(postId => this.postImageService.createImage(postId, this.uploadedImages))
       )

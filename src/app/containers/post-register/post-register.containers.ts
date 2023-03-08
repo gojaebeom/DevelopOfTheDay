@@ -92,7 +92,7 @@ export class PostRegisterContainers implements OnInit, AfterViewInit, OnDestroy 
     const formData = this.formGroup.getRawValue();
     formData.content = toHTML(formData.content);
 
-    this.postService.create(formData)
+    this.postService.createPost(formData)
       .pipe(
         tap(console.log)
       )
