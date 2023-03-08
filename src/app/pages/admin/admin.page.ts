@@ -17,6 +17,8 @@ import { ThemeService } from 'src/app/services/theme.service';
 })
 export class AdminPage implements AfterViewInit {
 
+  hideTitleWithTabBox = false;
+
   constructor(
     public readonly theme: ThemeService,
     private readonly router: Router,
@@ -48,16 +50,17 @@ export class AdminPage implements AfterViewInit {
 
     switch (type) {
       case 'category-manager':
+        this.hideTitleWithTabBox = false;
         tabActiveBox.style.width = buttons[0].offsetWidth + 'px';
         tabActiveBox.style.left = buttons[0].offsetLeft + 'px';
         return;
       case 'post-manager':
+        this.hideTitleWithTabBox = false;
         tabActiveBox.style.width = buttons[1].offsetWidth + 'px';
         tabActiveBox.style.left = buttons[1].offsetLeft + 'px';
         return;
-      case 'music-manager':
-        tabActiveBox.style.width = buttons[2].offsetWidth + 'px';
-        tabActiveBox.style.left = buttons[2].offsetLeft + 'px';
+      case 'post-register':
+        this.hideTitleWithTabBox = true;
         return;
       default:
         return;

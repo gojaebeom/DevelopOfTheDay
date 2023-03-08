@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
@@ -10,7 +11,7 @@ import { IPost, PostService } from 'src/app/services/post.service';
 @Component({
   selector: 'app-post-manager',
   standalone: true,
-  imports: [CommonModule, PostRegisterContainers],
+  imports: [CommonModule, PostRegisterContainers, RouterModule],
   templateUrl: './post-manager.page.html'
 })
 export class PostManagerPage implements OnInit{

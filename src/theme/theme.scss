@@ -9,18 +9,6 @@
             @apply bg-white;
         }
     }
-
-    #decorateBox {
-        @apply bg-white border border-gray-200;
-    }
-    
-    #tabWrap {
-        @apply bg-gray-200;
-    
-        #tabActiveBox {
-            @apply bg-white border-gray-200;
-        }
-    }
 }
 
 #rainCloud {
@@ -34,18 +22,6 @@
             @apply bg-white;
         }
     }
-
-    #decorateBox {
-        @apply bg-white border border-gray-200;
-    }
-    
-    #tabWrap {
-        @apply bg-gray-200;
-    
-        #tabActiveBox {
-            @apply bg-white border-gray-200;
-        }
-    }
 }
 
 #twilight {
@@ -57,18 +33,6 @@
 
         section {
             @apply bg-white;
-        }
-    }
-
-    #decorateBox {
-        @apply bg-white border border-gray-200;
-    }
-    
-    #tabWrap {
-        @apply bg-gray-200;
-    
-        #tabActiveBox {
-            @apply bg-white border-gray-200;
         }
     }
 }
@@ -95,5 +59,17 @@
         #tabActiveBox {
             @apply bg-[#252048] border-4 border-[#312a5b];
         }
+    }
+}
+
+#decorateBox {
+    @apply bg-white border border-gray-200;
+}
+
+#tabWrap {
+    @apply bg-gray-200;
+
+    #tabActiveBox {
+        @apply bg-white border-4 border-gray-200;
     }
 }
