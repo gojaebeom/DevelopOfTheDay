@@ -4,7 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { Editor, NgxEditorModule, toHTML } from 'ngx-editor';
 
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { CategoryService, ICategory } from 'src/app/services/category.service';
 import { PostService } from 'src/app/services/post.service';
@@ -92,6 +92,10 @@ export class PostRegisterContainers implements OnInit, AfterViewInit, OnDestroy 
     const formData = this.formGroup.getRawValue();
     formData.content = toHTML(formData.content);
 
-    this.postService.create(formData).subscribe();
+    this.postService.create(formData)
+      .pipe(
+        tap(console.log)
+      )
+      .subscribe();
   }
 }

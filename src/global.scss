@@ -1,10 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./theme/tailwind.scss";
+@import "./theme/init.scss";
 @import "./theme/font.scss";
 @import "./theme/theme.scss";
 
+.NgxEditor__MenuBar {
+    border:none !important;
+}
+
 .NgxEditor {
-    @apply text-neutral-700 p-2;
+    @apply text-neutral-700;
 
     h1,h2,h3 {
         @apply font-bold mt-6 mb-4;

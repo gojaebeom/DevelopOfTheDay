@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { addDoc, collectionData, Firestore, orderBy, query, Timestamp } from "@angular/fire/firestore";
 import { collection } from "@firebase/firestore";
 
-import { BehaviorSubject, from, shareReplay, take, tap } from "rxjs";
+import { BehaviorSubject, from, map, shareReplay, take, tap } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -33,12 +33,9 @@ export class PostService {
         return this.posts$.asObservable();
     }
 
-    create(post: Partial<IPost>) {
-        const result = {
-            categoryId: post.categoryId,
-            title: post.title,
-            description: post.description,
-            content: post.content,
+    create(post: Omit<IPost, 'id'|'createdAt'>) {
+        const result = <Omit<IPost, 'id'>>{
+            ...post,
             createdAt: Timestamp.now()
         };
         return from(
@@ -47,7 +44,10 @@ export class PostService {
                 result
             )
         )
-        .pipe(take(1));
+        .pipe(
+            take(1),
+            map((res) => res.id)
+        );
     }
 }
 
@@ -56,7 +56,6 @@ export interface IPost {
     categoryId: string;
     title: string;
     content: string;
-    description: string;
     createdAt: Timestamp;
 }
 
