@@ -1,0 +1,99 @@
+#hanami {
+    @apply bg-gradient-to-tr from-[#f6dfc7] to-[#dbecda];
+    @apply text-neutral-700;
+
+    .section-wrap {
+        @apply bg-gray-200;
+
+        section {
+            @apply bg-white;
+        }
+    }
+
+    #decorateBox {
+        @apply bg-white border border-gray-200;
+    }
+    
+    #tabWrap {
+        @apply bg-gray-200;
+    
+        #tabActiveBox {
+            @apply bg-white border-gray-200;
+        }
+    }
+}
+
+#rainCloud {
+    @apply bg-gradient-to-br from-[#bfbedc] to-[#d8e5ec];
+    @apply text-neutral-700;
+
+    .section-wrap {
+        @apply bg-gray-200;
+
+        section {
+            @apply bg-white;
+        }
+    }
+
+    #decorateBox {
+        @apply bg-white border border-gray-200;
+    }
+    
+    #tabWrap {
+        @apply bg-gray-200;
+    
+        #tabActiveBox {
+            @apply bg-white border-gray-200;
+        }
+    }
+}
+
+#twilight {
+    @apply bg-gradient-to-br from-[#f9d99a] to-[#f6c2ab];
+    @apply text-neutral-700;
+
+    .section-wrap {
+        @apply bg-gray-200;
+
+        section {
+            @apply bg-white;
+        }
+    }
+
+    #decorateBox {
+        @apply bg-white border border-gray-200;
+    }
+    
+    #tabWrap {
+        @apply bg-gray-200;
+    
+        #tabActiveBox {
+            @apply bg-white border-gray-200;
+        }
+    }
+}
+
+#midNight {
+    @apply bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900;
+    @apply text-gray-200;
+
+    .section-wrap {
+        @apply bg-[#161234];
+
+        section {
+            @apply bg-[#252048];
+        }
+    }
+
+    #decorateBox {
+        @apply bg-[#252048] border border-gray-700;
+    }
+
+    #tabWrap {
+        @apply bg-[#312a5b];
+    
+        #tabActiveBox {
+            @apply bg-[#252048] border-4 border-[#312a5b];
+        }
+    }
+}

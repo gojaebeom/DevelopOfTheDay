@@ -1,56 +1,93 @@
+<form
+  [formGroup]="formGroup"
+  (submit)="formSubmit()"
+  class="text-neutral-600 p-4 pb-10"
+>
+  <div class="flex flex-col lg:flex-row">
+    <div class="flex flex-col w-full lg:mr-4 mt-2">
+      <label class="text-sm">제목</label>
+      <input
+        type="text"
+        class="border border-gray-400 rounded-md p-2 h-14 w-full"
+        placeholder="포스트 제목을 입력해주세요"
+        formControlName="title"
+      />
+    </div>
+    <div class="flex flex-col w-full mt-2">
+      <label class="text-sm">카테고리 선택</label>
+      <select
+        type="text"
+        [selectedIndex]="0"
+        class="border border-gray-400 rounded-md p-2 h-14 w-full"
+        placeholder="포스트 제목을 입력해주세요"
+        formControlName="categoryId"
+      >
+        <option [value]="null">카테고리를 선택하세요.</option>
+        <option
+          *ngFor="let category of categories$|async"
+          [value]="category.id"
+        >
+          {{category.title}}
+        </option>
+      </select>
+    </div>
+  </div>
 
-<ng-container *ngIf="(theme.getThemeSystem()|async) as theme">
-    <form [formGroup]="formGroup" (submit)="formSubmit()" class="text-neutral-600 p-4 pb-10">
-        <div class="flex flex-col lg:flex-row">
-            <div class="flex flex-col w-full lg:mr-4 mt-2">
-                <label class="text-sm">제목</label>
-                <input type="text" class="border border-gray-400 rounded-md p-2 h-14 w-full" placeholder="포스트 제목을 입력해주세요" formControlName="title">
-            </div>
-            <div class="flex flex-col w-full mt-2">
-                <label class="text-sm">카테고리 선택</label>
-                <select type="text" [selectedIndex]="0" class="border border-gray-400 rounded-md p-2 h-14 w-full" placeholder="포스트 제목을 입력해주세요" formControlName="categoryId">
-                    <option [value]="null">카테고리를 선택하세요.</option>
-                    <option *ngFor="let category of categories$|async" [value]="category.id">{{category.title}}</option>
-                </select>
-            </div>
-        </div>
-    
-        <div class="mt-2">
-            <label class="text-sm">설명</label>
-            <textarea placeholder="게시물 목록에서 보일 본문 내용의 일부를 작성하세요." class="border border-gray-400 rounded-md p-2 w-full" rows="2" formControlName="description"></textarea>
-        </div>
+  <div class="mt-2">
+    <label class="text-sm">설명</label>
+    <textarea
+      placeholder="게시물 목록에서 보일 본문 내용의 일부를 작성하세요."
+      class="border border-gray-400 rounded-md p-2 w-full"
+      rows="2"
+      formControlName="description"
+    ></textarea>
+  </div>
 
-        <div>
-            <label class="text-sm">
-                <div class="flex flex-col justify-start">
-                    <span class="mr-2">본문 이미지 추가
-                        <span class="text-red-400 mt-4 text-xs">* 이미지 URL이 생성되면 텍스트 영역을 클릭하여 복사하고 에디터에 붙여 넣으세요.</span>
-                    </span>
-                    <label class="text-white flex justify-center items-center w-[200px] p-2 rounded-xl font-c bg-gray-700 shadow-[0px_8px_0px] shadow-gray-900 active:translate-y-[8px] active:shadow-[0px_0px_0px] transition-all duration-200 mt-2">
-                        IMAGE UPLOAD
-                        <input type="file" class="hidden" (change)="onUploadImage($event)" accept="image/png, image/jpeg, image/jpg, image/webp, image/gif">
-                    </label>
-                </div>
-            </label>
-       
-            <!-- <div class="p-2 rounded-xl bg-gray-100 text-xs mt-2" *ngFor="let image of uploadedImages" >
+  <div>
+    <label class="text-sm">
+      <div class="flex flex-col justify-start">
+        <span class="mr-2"
+          >본문 이미지 추가
+          <span class="text-red-400 mt-4 text-xs"
+            >* 이미지 URL이 생성되면 텍스트 영역을 클릭하여 복사하고 에디터에
+            붙여 넣으세요.</span
+          >
+        </span>
+        <label
+          class="text-white flex justify-center items-center w-[200px] p-2 rounded-xl font-c bg-gray-700 shadow-[0px_8px_0px] shadow-gray-900 active:translate-y-[8px] active:shadow-[0px_0px_0px] transition-all duration-200 mt-2"
+        >
+          IMAGE UPLOAD
+          <input
+            type="file"
+            class="hidden"
+            (change)="onUploadImage($event)"
+            accept="image/png, image/jpeg, image/jpg, image/webp, image/gif"
+          />
+        </label>
+      </div>
+    </label>
+
+    <!-- <div class="p-2 rounded-xl bg-gray-100 text-xs mt-2" *ngFor="let image of uploadedImages" >
                 <div class="w-full text-end">
                     <span class="p-4 text-red-400 cursor-pointer" (click)="removeImageFile(image)">이미지 제거</span>
                 </div>
                 <div class="cursor-pointer hover:text-blue-500" (click)="copyToClipboard(image)">{{image}}</div>
             </div> -->
-        </div>
-    
-        <div class="NgxEditor__Wrapper mt-6">
-            <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
-            <ngx-editor [editor]="editor" [placeholder]="'멋진 글을 작성하세요'" class="font-d" formControlName="content"></ngx-editor>
-        </div>
-    
-        <button class="text-white flex justify-center items-center w-full p-4 rounded-xl font-c bg-gray-700 shadow-[0px_8px_0px] shadow-gray-900 active:translate-y-[8px] active:shadow-[0px_0px_0px] transition-all duration-200 mt-16"
-        >
-            POST UPLOAD
-        </button>
-    </form>
-</ng-container>
+  </div>
 
+  <div class="NgxEditor__Wrapper mt-6">
+    <ngx-editor-menu [editor]="editor"></ngx-editor-menu>
+    <ngx-editor
+      [editor]="editor"
+      [placeholder]="'멋진 글을 작성하세요'"
+      class="font-d"
+      formControlName="content"
+    ></ngx-editor>
+  </div>
 
+  <button
+    class="text-white flex justify-center items-center w-full p-4 rounded-xl font-c bg-gray-700 shadow-[0px_8px_0px] shadow-gray-900 active:translate-y-[8px] active:shadow-[0px_0px_0px] transition-all duration-200 mt-16"
+  >
+    POST UPLOAD
+  </button>
+</form>

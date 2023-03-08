@@ -1,18 +1,15 @@
-<ng-container *ngIf="(theme.getThemeSystem()|async) as theme">
-    <div class="font-p">
-        <div class="text-xl font-c md:text-2xl 2xl:text-3xl">Blog Manager ⚙️</div>
-    
-        <div class="{{ theme.bgTertiary }} relative h-[40px] md:h-[50px] rounded-lg md:rounded-xl mt-4">
-            <div id="tabActiveBox" class="absolute left-0 h-full w-[34%] {{ theme.bgSecondary }} rounded-lg md:rounded-xl  
-            {{ theme.border }} border-4 transition-all delay-75"></div>
-            <div id="tabButtonBox" class="{{ theme.textSecondary }} absolute flex justify-around w-full h-full text-sm font-p md:text-lg">
-                <button id="categoryBtn" class="flex-1" routerLink="/admin/category-manager">카테고리</button>
-                <button id="postBtn" class="flex-1" routerLink="/admin/post-manager">포스트</button>
-            </div>
+<div class="font-p">
+    <div class="text-xl font-c md:text-2xl 2xl:text-3xl">Blog Manager ⚙️</div>
+
+    <div id="tabWrap" class="relative h-[40px] md:h-[50px] rounded-lg md:rounded-xl mt-4">
+        <div id="tabActiveBox" class="absolute left-0 h-full w-[34%] rounded-lg md:rounded-xl transition-all delay-75"></div>
+        <div id="tabButtonBox" class="absolute flex justify-around w-full h-full text-sm font-p md:text-lg">
+            <button id="categoryBtn" class="flex-1" routerLink="/admin/category-manager">카테고리</button>
+            <button id="postBtn" class="flex-1" routerLink="/admin/post-manager">포스트</button>
         </div>
-    
-        <router-outlet></router-outlet>
     </div>
-</ng-container>
+
+    <router-outlet></router-outlet>
+</div>
 
 

@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./theme/tailwind.scss";
 @import "./theme/font.scss";
+@import "./theme/theme.scss";
 
 .NgxEditor {
     @apply text-neutral-700 p-2;

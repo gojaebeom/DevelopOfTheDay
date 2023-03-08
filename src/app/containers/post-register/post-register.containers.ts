@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 
 import { CategoryService, ICategory } from 'src/app/services/category.service';
 import { PostService } from 'src/app/services/post.service';
-import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-post-register',
@@ -29,7 +28,6 @@ export class PostRegisterContainers implements OnInit, AfterViewInit, OnDestroy 
   
 
   constructor(
-      public readonly theme: ThemeService,
       private readonly categoryService: CategoryService,
       private readonly postService: PostService
   ) { }
