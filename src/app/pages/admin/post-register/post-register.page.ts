@@ -1,17 +1,15 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
-import { Observable, switchMap, tap } from 'rxjs';
+import { finalize, iif, Observable, of, switchMap, tap } from 'rxjs';
 
-import { Editor, NgxEditorModule, toHTML, Toolbar, ToolbarCustomMenuItem } from 'ngx-editor';
+import { Editor, NgxEditorModule, toHTML, Toolbar } from 'ngx-editor';
 
-import { StorageService } from 'src/app/services/storage.service';
-import { PostService } from 'src/app/services/post.service';
 import { CategoryService, ICategory } from 'src/app/services/category.service';
-import { ModalContainer } from 'src/app/containers/modal/modal.container';
-import { PostImageService } from 'src/app/services/post-image.service';
+import { PostService } from 'src/app/services/post.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-post-register',
@@ -24,7 +22,7 @@ import { PostImageService } from 'src/app/services/post-image.service';
   ],
   templateUrl: './post-register.page.html'
 })
-export class PostRegisterPage implements OnInit {
+export class PostRegisterPage implements OnInit, AfterViewInit {
 
   categories$!:Observable<ICategory[]>;
 
@@ -43,9 +41,10 @@ export class PostRegisterPage implements OnInit {
 
   constructor(
     private readonly postService: PostService,
-    private readonly postImageService: PostImageService,
     private readonly categoryService: CategoryService,
-    private readonly storageService: StorageService
+    private readonly storageService: StorageService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +56,39 @@ export class PostRegisterPage implements OnInit {
       title: new FormControl(),
       content: new FormControl()
     });
+
+    this.route.params
+      .pipe(
+        switchMap((event:any) => {
+          if(!event.id) {
+            return of(false);
+          }
+
+          return this.postService.getPost(event.id)
+            .pipe(
+              tap(post => {
+                this.formGroup.patchValue(post);
+                this.formGroup.addControl('id', new FormControl(post.id));
+                this.formGroup.addControl('createdAt', new FormControl(post.createdAt));
+              }),
+            )
+        })
+      )
+      .subscribe();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      const images = document.querySelectorAll('.NgxEditor__Content img');
+      const uploadedImages:string[] = [];
+      images.forEach((img:any) => {
+        if(!img.currentSrc){
+          return;
+        }
+        uploadedImages.push(img.currentSrc);
+      });
+      this.uploadedImages = uploadedImages;
+    }, 1000);
   }
 
   onUploadImage(event: any) {
@@ -115,13 +147,24 @@ export class PostRegisterPage implements OnInit {
     if(!formData.content) {
       return window.alert('내용을 입력하세요.');
     }
-    
-    formData.content = toHTML(formData.content);
-    
-    this.postService.createPost(formData)
-      .pipe(
-        switchMap(postId => this.postImageService.createImage(postId, this.uploadedImages))
-      )
-      .subscribe();
+    if(typeof formData.content !== 'string') {
+      formData.content = toHTML(formData.content);
+    }
+
+    let obs$:Observable<any>;
+    if(!formData.id) {
+      obs$ = this.postService.createPost(formData);
+    } else {
+      obs$  = this.postService.updatePost(formData);
+    }
+
+    obs$
+    .pipe(
+      finalize(() => {
+        console.log('완료!');
+        this.router.navigateByUrl('/admin/manager/posts');
+      })
+    )
+    .subscribe();
   }
 }
