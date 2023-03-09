@@ -1,17 +1,4 @@
-<div class="flex justify-between items-center">
-  <a routerLink="/admin/manager/posts">
-    <i class="fa-solid fa-chevron-left text-xl md:text-2xl"></i>
-  </a>
-  <button
-    type="button"
-    class="text-xl md:text-2xl hover:text-blue-500"
-    (click)="submitForm()"
-  >
-    발행
-  </button>
-</div>
-
-<form [formGroup]="formGroup" class="mt-10">
+<form [formGroup]="formGroup" (submit)="submitForm()">
   <div class="flex">
     <input
       type="text"
@@ -32,6 +19,13 @@
       </option>
     </select>
   </div>
+  <textarea
+    type="text"
+    placeholder="간단한 설명"
+    class="text-base lg:text-lg w-full font-d mt-2"
+    formControlName="description"
+    rows="1"
+  ></textarea>
 
   <div class="mt-6" *ngIf="uploadedImages.length">
     <div
@@ -77,5 +71,15 @@
       class="font-d !border-none"
       formControlName="content"
     ></ngx-editor>
+  </div>
+  <div class="flex justify-between items-center">
+    <a routerLink="/admin/manager/posts">
+      <i class="fa-solid fa-chevron-left text-xl md:text-2xl"></i>
+    </a>
+    <button
+      class="text-xl md:text-2xl hover:text-blue-500"
+    >
+      발행
+    </button>
   </div>
 </form>

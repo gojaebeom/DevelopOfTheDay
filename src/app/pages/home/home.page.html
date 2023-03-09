@@ -1,5 +1,22 @@
-<div class="text-xl md:text-2xl 2xl:text-3xl font-d">
-    최근 글 목록
+<div class="font-d">
+    <div class="text-xl md:text-xl 2xl:text-xl mb-2">
+        카테고리
+    </div>
+    <div class="flex flex-wrap font-p mb-10">
+        <div class="px-4 py-2 m-2 category-tag" *ngFor="let category of categories$|async">
+            {{category.title}}
+        </div>
+    </div>
+
+    <div class="text-xl md:text-xl 2xl:text-xl mb-2">
+        최근 글 목록
+    </div>
+    
+    <div *ngFor="let post of latestPosts$|async" class="mb-6">
+        <div class="text-sm 2xl:text-lg">
+            <span>{{post.category.title}}</span> / {{post.createdAt.seconds|date}}</div>
+        <h2 class="text-2xl 2xl:text-3xl">{{post.title}}</h2>
+        <div class="text-sm 2xl:text-base">{{post.description}}</div>
+    </div>
 </div>
-<br/>
-<a routerLink="/admin">관리자페이지 가기</a>
+

@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
-import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, orderBy, query, Timestamp, updateDoc } from "@angular/fire/firestore";
-import { collection } from "@firebase/firestore";
+import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, limit, orderBy, query, Timestamp, updateDoc } from "@angular/fire/firestore";
+import { collection, CollectionReference, DocumentData } from "@firebase/firestore";
 
 import { BehaviorSubject, from, map, shareReplay, take, tap } from "rxjs";
+
+import { ICategory } from "./category.service";
 
 @Injectable({
     providedIn: 'root'
@@ -11,14 +13,18 @@ export class PostService {
 
     private posts$ = new BehaviorSubject<IPost[]>([]);
 
+    postCollection!: CollectionReference<DocumentData>;
+
     constructor(
         private readonly fireStore: Firestore
-    ) { }
+    ) { 
+        this.postCollection = collection(fireStore, 'posts');
+    }
 
     getAllPosts(sortDto: IPostSort = { column: 'createdAt', sort: 'desc'}) {
         collectionData(
             query(
-                collection(this.fireStore, 'posts'), 
+                this.postCollection, 
                 orderBy(sortDto.column, sortDto.sort)
             ), 
             {idField: 'id'}
@@ -30,6 +36,22 @@ export class PostService {
         )
         .subscribe();
         
+        return this.posts$.asObservable();
+    }
+
+    getLatestPosts() {
+        collectionData(
+            query(
+                this.postCollection, 
+                orderBy('createdAt', 'desc'),
+                limit(10),
+            )
+        )
+        .pipe(
+            shareReplay(),
+            tap(res => this.posts$.next(<IPost[]>res))
+        ).subscribe();
+
         return this.posts$.asObservable();
     }
 
@@ -48,7 +70,7 @@ export class PostService {
         };
         return from(
             addDoc(
-                collection(this.fireStore, 'posts'), 
+                this.postCollection, 
                 result
             )
         )
@@ -80,6 +102,7 @@ export interface IPost {
     id: string;
     categoryId: string;
     title: string;
+    description: string;
     content: string;
     createdAt: Timestamp;
 }

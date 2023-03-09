@@ -2,8 +2,8 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { DecorateBoxHandlerService } from './services/decorate-box-handler.service';
-import { Theme, ThemeService } from './services/theme.service';
+import { DecorateBoxHandlerService } from './services/UI/decorate-box-handler.service';
+import { Theme, ThemeService } from './services/UI/theme.service';
 
 @Component({
   selector: 'app-root',

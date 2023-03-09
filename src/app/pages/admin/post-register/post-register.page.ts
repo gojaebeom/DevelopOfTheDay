@@ -54,6 +54,7 @@ export class PostRegisterPage implements OnInit, AfterViewInit {
     this.formGroup = new FormGroup({
       categoryId: new FormControl(),
       title: new FormControl(),
+      description: new FormControl(),
       content: new FormControl()
     });
 
@@ -143,6 +144,9 @@ export class PostRegisterPage implements OnInit, AfterViewInit {
     }
     if(!formData.categoryId) {
       return window.alert('카테고리를 선택하세요.');
+    }
+    if(!formData.description) {
+      return window.alert('간단한 설명을 추가하세요.');
     }
     if(!formData.content) {
       return window.alert('내용을 입력하세요.');

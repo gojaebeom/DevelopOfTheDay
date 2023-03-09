@@ -26,7 +26,6 @@ export class CategoryService {
         )
         .pipe(
             shareReplay(),
-            tap(() => console.log('firebase get categories!')),
             tap(res => this.categories$.next(<ICategory[]>res))
         )
         .subscribe();

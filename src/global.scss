@@ -8,7 +8,13 @@
     border:none !important;
 }
 
+.NgxEditor__Content {
+    @apply min-h-[80vh];
+}
+
 .NgxEditor {
+
+
     @apply text-neutral-700;
 
     h1,h2,h3 {

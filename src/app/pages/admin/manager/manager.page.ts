@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 import { fromEvent, tap } from 'rxjs';
 
-import { ThemeService } from 'src/app/services/theme.service';
+import { ThemeService } from 'src/app/services/UI/theme.service';
 
 @Component({
   selector: 'app-manager',

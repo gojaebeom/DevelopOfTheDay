@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IModalState, ModalHandlerService } from 'src/app/services/modal-handler.service';
+
 import { Observable } from 'rxjs';
+
+import { IModalState, ModalHandlerService } from 'src/app/services/UI/modal-handler.service';
 
 @Component({
   selector: 'app-modal',

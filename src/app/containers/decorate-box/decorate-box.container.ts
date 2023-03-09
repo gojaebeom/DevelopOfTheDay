@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { Theme, ThemeService } from 'src/app/services/theme.service';
-import { DecorateBoxHandlerService } from 'src/app/services/decorate-box-handler.service';
+import { Theme, ThemeService } from 'src/app/services/UI/theme.service';
+import { DecorateBoxHandlerService } from 'src/app/services/UI/decorate-box-handler.service';
 
 @Component({
   selector: 'app-decorate-box',
