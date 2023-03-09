@@ -1,15 +1,19 @@
-<div class="font-d" *ngIf="post$|async as post">
-    <h1 class="text-2xl lg:text-3xl">{{post.title}}</h1>
-    <div class="text-sm 2xl:text-lg">
-        <a [routerLink]="['/categories', post.category.id]" class="hover:bg-blue-500 hover:text-white px-1">
-          {{post.category.title}}
-        </a>
-        / {{post.createdAt.seconds|date}}
-      </div>
+<a routerLink="/">
+  <i class="fa-solid fa-chevron-left text-xl md:text-2xl"></i>
+</a>
+<div id="viewer" class="font-d mt-10" *ngIf="post$|async as post">
+    <div class="text-2xl lg:text-3xl font-bold">{{post.title}}</div>
+    <div class="text-sm xl:text-base text-gray-500 flex justify-start items-center">
+      <a [routerLink]="['/categories', post.category.id]" class="hover:bg-blue-500 hover:text-white font-c mr-2">
+        {{post.category.title}} 
+      </a>
+      <img src="https://em-content.zobj.net/thumbs/320/openmoji/338/stopwatch_23f1-fe0f.png" class="w-4 h-4 mr-0.5 mt-0.5"/>
+      <span class="font-d">
+        {{post.createdAt.seconds|date:'yyyy.mm.dd'}}
+      </span>
+    </div>
     <p class="mt-4">{{post.description}}</p>
     <div class="NgxEditor mt-4" [innerHTML]="post.content"></div>
-
-    
 </div>
 
 <!-- <div id="disqus_thread"></div> -->

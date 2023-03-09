@@ -1,3 +1,46 @@
 input,button,select,textarea:focus {
     outline: none ;
 }
+
+.NgxEditor__MenuBar {
+    border:none !important;
+}
+
+.NgxEditor__Content {
+    @apply min-h-[80vh];
+}
+
+#viewer {
+    @apply text-neutral-700;
+
+    h1,h2,h3 {
+        @apply font-bold mt-6 mb-4;
+    }
+    h1 {
+        @apply text-xl lg:text-2xl;
+    }
+    h2 {
+        @apply text-lg lg:text-xl;
+    }
+    h3 {
+        @apply text-base lg:text-lg;
+    }
+    p {
+        @apply mb-4 lg:mb-4 lg:text-lg;
+    }
+    ul,ol {
+        @apply  pl-6;
+    }
+    ul {
+        @apply list-disc;
+    }
+    ol {
+        @apply list-decimal;
+    }
+    strong {
+        @apply font-black;
+    }
+    img {
+        @apply rounded-md;
+    }
+}
