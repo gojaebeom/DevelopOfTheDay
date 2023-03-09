@@ -1,0 +1,15 @@
+<div class="font-d" *ngIf="post$|async as post">
+    <h1 class="text-2xl lg:text-3xl">{{post.title}}</h1>
+    <div class="text-sm 2xl:text-lg">
+        <a [routerLink]="['/categories', post.category.id]" class="hover:bg-blue-500 hover:text-white px-1">
+          {{post.category.title}}
+        </a>
+        / {{post.createdAt.seconds|date}}
+      </div>
+    <p class="mt-4">{{post.description}}</p>
+    <div class="NgxEditor mt-4" [innerHTML]="post.content"></div>
+
+    
+</div>
+
+<!-- <div id="disqus_thread"></div> -->

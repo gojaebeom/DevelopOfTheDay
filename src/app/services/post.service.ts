@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, limit, orderBy, query, Timestamp, updateDoc } from "@angular/fire/firestore";
 import { collection, CollectionReference, DocumentData } from "@firebase/firestore";
 
-import { BehaviorSubject, from, map, shareReplay, take, tap } from "rxjs";
+import { BehaviorSubject, from, map, shareReplay, switchMap, take, tap } from "rxjs";
 
 import { ICategory } from "./category.service";
 
@@ -22,7 +22,7 @@ export class PostService {
     }
 
     getAllPosts(sortDto: IPostSort = { column: 'createdAt', sort: 'desc'}) {
-        collectionData(
+        return collectionData(
             query(
                 this.postCollection, 
                 orderBy(sortDto.column, sortDto.sort)
@@ -32,15 +32,12 @@ export class PostService {
         .pipe(
             shareReplay(),
             tap(() => console.log('firebase get posts!')),
-            tap(res => this.posts$.next(<IPost[]>res))
-        )
-        .subscribe();
-        
-        return this.posts$.asObservable();
+            map(res => <IPost[]>res)
+        );
     }
 
     getLatestPosts() {
-        collectionData(
+        return collectionData(
             query(
                 this.postCollection, 
                 orderBy('createdAt', 'desc'),
@@ -49,10 +46,8 @@ export class PostService {
         )
         .pipe(
             shareReplay(),
-            tap(res => this.posts$.next(<IPost[]>res))
-        ).subscribe();
-
-        return this.posts$.asObservable();
+            map(res => <IPost[]>res)
+        );
     }
 
     getPost(id: string) {

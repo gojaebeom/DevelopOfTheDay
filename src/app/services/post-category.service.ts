@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Timestamp } from "@angular/fire/firestore";
+import { map, Observable, tap, zip } from "rxjs";
 
 import { ICategory } from "./category.service";
 
@@ -12,17 +13,41 @@ export class PostCategoryService {
 
     constructor() {}
 
-    getPostsWithCategory(posts:IPost[], categories:ICategory[]) {
-        return <IPostWithCategory[]>posts.map(post => {
-            return {
-              id: post.id,
-              title: post.title,
-              content: post.content,
-              description: post.description,
-              createdAt: post.createdAt,
-              category: categories.find(category => category.id === post.categoryId)
-            }
-        });
+    getPostWithCategory(post$:Observable<IPost>, categories$:Observable<ICategory[]>) {
+        return zip([
+            post$,
+            categories$
+        ])
+        .pipe(
+            map(([post, categories]) => <IPostWithCategory>{
+                id: post.id,
+                title: post.title,
+                content: post.content,
+                description: post.description,
+                createdAt: post.createdAt,
+                category: categories.find(category => category.id === post.categoryId)
+            })
+        );
+    }
+
+    getPostsWithCategory(posts$: Observable<IPost[]>, categories$: Observable<ICategory[]>) {
+        return zip([
+            posts$,
+            categories$
+        ])
+        .pipe(
+            map(([posts, categories]) => <IPostWithCategory[]>posts.map(post => {
+                    return {
+                      id: post.id,
+                      title: post.title,
+                      content: post.content,
+                      description: post.description,
+                      createdAt: post.createdAt,
+                      category: categories.find(category => category.id === post.categoryId)
+                    }
+                })
+            )
+        )
     }
 }
 

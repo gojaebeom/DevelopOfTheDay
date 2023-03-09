@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { forkJoin, map, Observable, of, switchMap, take } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap, take, tap, zip } from 'rxjs';
 
 import { CategoryService, ICategory } from 'src/app/services/category.service';
 import { IPostWithCategory, PostCategoryService } from 'src/app/services/post-category.service';
@@ -26,18 +26,10 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.categories$ = this.categoryService.getCategories();
-    this.latestPosts$ = this.postService.getLatestPosts()
-      .pipe(
-        switchMap(posts => {
-          return forkJoin([
-            of(posts).pipe(take(2)), 
-            this.categoryService.getCategories().pipe(take(2))
-          ]);
-        }),
-        map(([posts, categories]) => {
-          return this.postCategoryService.getPostsWithCategory(posts, categories);
-        })
-      );
+    this.categories$ = this.categoryService.getCategories()
+    this.latestPosts$ = this.postCategoryService.getPostsWithCategory(
+      this.postService.getLatestPosts(), 
+      this.categories$
+    );
   }
 }

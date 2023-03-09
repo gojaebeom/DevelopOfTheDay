@@ -5,8 +5,9 @@ import { CategoryManagerPage } from './pages/admin/manager/category-manager/cate
 import { ManagerPage } from './pages/admin/manager/manager.page';
 import { PostManagerPage } from './pages/admin/manager/post-manager/post-manager.page';
 import { PostRegisterPage } from './pages/admin/post-register/post-register.page';
+import { CategoryPage } from './pages/category/category.page';
 import { HomePage } from './pages/home/home.page';
-import { MenuPage } from './pages/menu/menu.page';
+import { PostPage } from './pages/post/post.page';
 
 const routes: Routes = [
   {
@@ -14,8 +15,12 @@ const routes: Routes = [
     component: HomePage,
   },
   {
-    path: 'menu',
-    component: MenuPage,
+    path: 'categories/:id',
+    component: CategoryPage
+  },
+  {
+    path: 'posts/:id',
+    component: PostPage
   },
   {
     path: 'admin',

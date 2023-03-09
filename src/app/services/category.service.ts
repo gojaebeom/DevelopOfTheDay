@@ -3,7 +3,7 @@ import { addDoc, collectionData, deleteDoc, doc, Firestore, orderBy, query, upda
 
 import { collection, Timestamp } from "@firebase/firestore";
 
-import { BehaviorSubject, from, shareReplay, take, tap } from "rxjs";
+import { BehaviorSubject, from, map, shareReplay, switchMap, take, tap } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +17,7 @@ export class CategoryService {
     ) {  }
 
     getCategories(sortDto:ICategorySort = {column: 'createdAt', sort: 'desc'}) {
-        collectionData(
+        return collectionData(
             query(
                 collection(this.fireStore, 'categories'), 
                 orderBy(sortDto.column, sortDto.sort)
@@ -26,11 +26,8 @@ export class CategoryService {
         )
         .pipe(
             shareReplay(),
-            tap(res => this.categories$.next(<ICategory[]>res))
+            map(res => <ICategory[]>res)
         )
-        .subscribe();
-
-        return this.categories$.asObservable();
     }
 
     createCategory(title: string) {
