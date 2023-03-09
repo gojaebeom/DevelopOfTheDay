@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { Observable, tap, throwError } from 'rxjs';
 
+import { LoadingContainer } from 'src/app/containers/loading/loading.container';
 import { CategoryService } from 'src/app/services/category.service';
 import { ICategoryWithPosts, PostCategoryService } from 'src/app/services/post-category.service';
 import { PostService } from 'src/app/services/post.service';
@@ -13,7 +14,8 @@ import { PostService } from 'src/app/services/post.service';
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    LoadingContainer
   ],
   templateUrl: './category.page.html'
 })
@@ -26,7 +28,6 @@ export class CategoryPage implements OnInit{
     private readonly postService: PostService,
     private readonly postCategoryService: PostCategoryService,
     private readonly route: ActivatedRoute,
-    private readonly router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -36,8 +37,6 @@ export class CategoryPage implements OnInit{
           if(!event.id) {
             throwError(() => 'not found category');
           }
-          console.log(event);
-          console.log(event.id);
           const category$ = this.categoryServic.getCategory(event.id);
           const posts$ = this.postService.getPostsBy(event.id);
           this.categoryWithPosts$ = this.postCategoryService.getCategoryWithPosts(category$, posts$);

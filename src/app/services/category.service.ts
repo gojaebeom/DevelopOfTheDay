@@ -4,6 +4,7 @@ import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, orderBy, qu
 import { collection, Timestamp } from "@firebase/firestore";
 
 import { from, map, shareReplay, take } from "rxjs";
+import { LoadingService } from "./UI/loading.service";
 
 @Injectable({
     providedIn: 'root'
@@ -11,11 +12,12 @@ import { from, map, shareReplay, take } from "rxjs";
 export class CategoryService {
 
     constructor(
-        private readonly fireStore: Firestore
+        private readonly fireStore: Firestore,
+        private readonly loadingService: LoadingService
     ) {  }
 
     getCategories(sortDto:ICategorySort = {column: 'createdAt', sort: 'desc'}) {
-        return collectionData(
+        const results$ = collectionData(
             query(
                 collection(this.fireStore, 'categories'), 
                 orderBy(sortDto.column, sortDto.sort)
@@ -26,10 +28,12 @@ export class CategoryService {
             shareReplay(),
             map(res => <ICategory[]>res)
         )
+
+        return this.loadingService.showLoaderUntilCompletedBy(results$);
     }
 
     getCategory(id: string) {
-        return docData(
+        const result$ = docData(
             doc(this.fireStore, 'categories', id), {
                 idField: 'id'
             }
@@ -37,31 +41,37 @@ export class CategoryService {
         .pipe(
             map(res => <ICategory>res)
         );
+
+        return this.loadingService.showLoaderUntilCompletedBy(result$);
     }
 
     createCategory(title: string) {
         const createdAt = Timestamp.now();
-        return from(addDoc(collection(this.fireStore, 'categories'), { title, createdAt }))
+        const result$ = from(addDoc(collection(this.fireStore, 'categories'), { title, createdAt }))
             .pipe(
                 take(1)
             );
+        return this.loadingService.showLoaderUntilCompletedBy(result$);
     }
 
     updateCategory(category: ICategory) {
-        return from(updateDoc(doc(this.fireStore, 'categories', category.id), {  
+        const result$ = from(updateDoc(doc(this.fireStore, 'categories', category.id), {  
             title: category.title,
             createdAt: category.createdAt
         }))
             .pipe(
                 take(1)
             );
+        return this.loadingService.showLoaderUntilCompletedBy(result$);
     }
 
     deleteCategory(id: string) {
-        return from(deleteDoc(doc(this.fireStore, 'categories', id)))
+        const result$ = from(deleteDoc(doc(this.fireStore, 'categories', id)))
             .pipe(
                 take(1)
             );
+
+        return this.loadingService.showLoaderUntilCompletedBy(result$);
     }
 }
 

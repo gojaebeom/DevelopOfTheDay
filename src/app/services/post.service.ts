@@ -4,6 +4,7 @@ import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, limit, orde
 import { collection, CollectionReference, DocumentData } from "@firebase/firestore";
 
 import { from, map, shareReplay, take, tap } from "rxjs";
+import { LoadingService } from "./UI/loading.service";
 
 
 @Injectable({
@@ -14,13 +15,14 @@ export class PostService {
     postCollection!: CollectionReference<DocumentData>;
 
     constructor(
-        private readonly fireStore: Firestore
+        private readonly fireStore: Firestore,
+        private readonly loadingService: LoadingService
     ) { 
         this.postCollection = collection(fireStore, 'posts');
     }
 
     getAllPosts(sortDto: IPostSort = { column: 'createdAt', sort: 'desc'}) {
-        return collectionData(
+        const results$ = collectionData(
             query(
                 this.postCollection, 
                 orderBy(sortDto.column, sortDto.sort)
@@ -32,10 +34,11 @@ export class PostService {
             tap(() => console.log('firebase get posts!')),
             map(res => <IPost[]>res)
         );
+        return this.loadingService.showLoaderUntilCompletedBy(results$);
     }
 
     getLatestPosts() {
-        return collectionData(
+        const results$ = collectionData(
             query(
                 this.postCollection, 
                 orderBy('createdAt', 'desc'),
@@ -46,10 +49,12 @@ export class PostService {
             shareReplay(),
             map(res => <IPost[]>res)
         );
+
+        return this.loadingService.showLoaderUntilCompletedBy(results$);
     }
 
     getPostsBy(categoryId: string) {
-        return collectionData(
+        const obs$ = collectionData(
             query(
                 this.postCollection, 
                 where('categoryId', '==', categoryId),
@@ -60,14 +65,16 @@ export class PostService {
             shareReplay(),
             map(res => <IPost[]>res)
         );
+        return this.loadingService.showLoaderUntilCompletedBy(obs$);
     }
 
     getPost(id: string) {
-        return docData(doc(this.fireStore, 'posts', id), {idField: 'id'})
+        const obs$ =  docData(doc(this.fireStore, 'posts', id), {idField: 'id'})
             .pipe(
                 shareReplay(),
                 map(res => <IPost>res)
             );
+        return this.loadingService.showLoaderUntilCompletedBy(obs$);
     }
 
     createPost(post: Omit<IPost, 'id'|'createdAt'>) {
@@ -75,7 +82,7 @@ export class PostService {
             ...post,
             createdAt: Timestamp.now()
         };
-        return from(
+        const obs$ =  from(
             addDoc(
                 this.postCollection, 
                 result
@@ -85,23 +92,26 @@ export class PostService {
             take(1),
             map((res) => res.id)
         );
+        return this.loadingService.showLoaderUntilCompletedBy(obs$);
     }
 
     updatePost(post: IPost) {
-        return from(
+        const obs$ = from(
             updateDoc(
                 doc(this.fireStore, 'posts', post.id), {
                     ...post
                 }
             )
         );
+        return this.loadingService.showLoaderUntilCompletedBy(obs$);
     }
 
     deletePost(id: string) {
-        return from(deleteDoc(doc(this.fireStore, 'posts', id)))
+        const obs$ =  from(deleteDoc(doc(this.fireStore, 'posts', id)))
             .pipe(
                 take(1)
             );
+        return this.loadingService.showLoaderUntilCompletedBy(obs$);
     }
 }
 

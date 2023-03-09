@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 import { Observable, of, switchMap, tap, throwError, zip } from 'rxjs';
+import { LoadingContainer } from 'src/app/containers/loading/loading.container';
 
 import { CategoryService } from 'src/app/services/category.service';
 import { IPostWithCategory, PostCategoryService } from 'src/app/services/post-category.service';
@@ -11,10 +12,14 @@ import { PostService } from 'src/app/services/post.service';
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule, 
+    RouterModule,
+    LoadingContainer
+  ],
   templateUrl: './post.page.html'
 })
-export class PostPage implements OnInit{
+export class PostPage implements OnInit, AfterViewInit{
 
   post$!:Observable<IPostWithCategory>;
 
@@ -41,5 +46,12 @@ export class PostPage implements OnInit{
       }),
     )
     .subscribe();
+  }
+
+  ngAfterViewInit(): void {
+    const element = document.querySelector('#appBackground');
+    element?.scrollTo({
+      top: 0
+    });
   }
 }

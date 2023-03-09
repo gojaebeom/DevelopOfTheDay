@@ -65,6 +65,23 @@
             @apply bg-[#252048] border-4 border-[#312a5b];
         }
     }
+
+    #loading-view {
+        @apply bg-[#252048];
+
+        .loading-view-item-1 {
+            @apply bg-gray-700;
+        }
+        .loading-view-item-2 {
+            @apply bg-gray-500;
+        }
+        .loading-view-item-3 {
+            @apply bg-gray-600;
+        }
+        .loading-view-item-4 {
+            @apply bg-gray-400;
+        }
+    }
 }
 
 #decorateBox {
@@ -81,4 +98,21 @@
 
 .category-tag {
     @apply bg-gray-200;
+}
+
+#loading-view {
+    @apply bg-white;
+
+    .loading-view-item-1 {
+        @apply bg-blue-50;
+    }
+    .loading-view-item-2 {
+        @apply bg-gray-100;
+    }
+    .loading-view-item-3 {
+        @apply bg-gray-200;
+    }
+    .loading-view-item-4 {
+        @apply bg-blue-50;
+    }
 }

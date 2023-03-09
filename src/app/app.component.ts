@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, AfterViewInit{
 
   constructor(
     private readonly themeService: ThemeService,
-    private readonly decorateBoxHandler: DecorateBoxHandlerService
+    private readonly decorateBoxHandler: DecorateBoxHandlerService,
   ) { }
 
   ngOnInit(): void {
