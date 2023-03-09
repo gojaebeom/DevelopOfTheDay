@@ -1,5 +1,5 @@
 #hanami {
-    @apply bg-gradient-to-tr from-[#f6dfc7] to-[#dbecda];
+    @apply bg-gradient-to-tr from-[#f7dabc] to-[#d0f6ce];
     @apply text-neutral-700;
 
     .section-wrap {
@@ -13,7 +13,7 @@
 }
 
 #rainCloud {
-    @apply bg-gradient-to-br from-[#bfbedc] to-[#d8e5ec];
+    @apply bg-gradient-to-tr from-[#bab8e0] to-[#a3c7db];
     @apply text-neutral-700;
 
     .section-wrap {
@@ -26,7 +26,7 @@
 }
 
 #twilight {
-    @apply bg-gradient-to-br from-[#f9d99a] to-[#f6c2ab];
+    @apply bg-gradient-to-tr from-[#f9d99a] to-[#f5b092];
     @apply text-neutral-700;
 
     .section-wrap {
@@ -81,6 +81,10 @@
         .loading-view-item-4 {
             @apply bg-gray-400;
         }
+    }
+
+    #viewer {
+        @apply text-gray-200;
     }
 }
 
