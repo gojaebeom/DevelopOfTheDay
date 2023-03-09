@@ -1,17 +1,15 @@
 import { Injectable } from "@angular/core";
-import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, limit, orderBy, query, Timestamp, updateDoc } from "@angular/fire/firestore";
+import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, limit, orderBy, query, Timestamp, updateDoc, where } from "@angular/fire/firestore";
+
 import { collection, CollectionReference, DocumentData } from "@firebase/firestore";
 
-import { BehaviorSubject, from, map, shareReplay, switchMap, take, tap } from "rxjs";
+import { from, map, shareReplay, take, tap } from "rxjs";
 
-import { ICategory } from "./category.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PostService {
-
-    private posts$ = new BehaviorSubject<IPost[]>([]);
 
     postCollection!: CollectionReference<DocumentData>;
 
@@ -42,6 +40,20 @@ export class PostService {
                 this.postCollection, 
                 orderBy('createdAt', 'desc'),
                 limit(10),
+            )
+        )
+        .pipe(
+            shareReplay(),
+            map(res => <IPost[]>res)
+        );
+    }
+
+    getPostsBy(categoryId: string) {
+        return collectionData(
+            query(
+                this.postCollection, 
+                where('categoryId', '==', categoryId),
+                orderBy('createdAt', 'desc'),
             )
         )
         .pipe(

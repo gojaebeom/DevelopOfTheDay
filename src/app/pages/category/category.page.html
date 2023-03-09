@@ -1,1 +1,22 @@
-<p>category works!</p>
+<ng-container *ngIf="categoryWithPosts$|async as result">
+    <div class="flex justify-start items-center mb-6">
+        <a routerLink="/" class="mr-4">
+            <i class="fa-solid fa-chevron-left text-xl md:text-2xl"></i>
+        </a>
+        <div class="text-xl font-c md:text-2xl 2xl:text-3xl">{{result.category.title}}</div>
+    </div>
+
+
+    <div *ngFor="let post of result.posts" class="mb-4 font-d">
+        <div class="text-sm xl:text-base text-gray-500 flex justify-start items-center">
+          <img src="https://em-content.zobj.net/thumbs/320/openmoji/338/stopwatch_23f1-fe0f.png" class="w-4 h-4 mr-0.5 mt-0.5"/>
+          <span>
+            {{post.createdAt.seconds|date:'yyyy.mm.dd'}}
+          </span>
+        </div>
+        <a [routerLink]="['/posts', post.id]">
+            <h2 class="text-2xl 2xl:text-3xl">{{post.title}}</h2>
+            <div class="text-base xl:text-lg">{{post.description}}</div>
+        </a>
+      </div>
+</ng-container>

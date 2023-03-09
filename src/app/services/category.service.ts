@@ -1,16 +1,14 @@
 import { Injectable } from "@angular/core";
-import { addDoc, collectionData, deleteDoc, doc, Firestore, orderBy, query, updateDoc } from "@angular/fire/firestore";
+import { addDoc, collectionData, deleteDoc, doc, docData, Firestore, orderBy, query, updateDoc } from "@angular/fire/firestore";
 
 import { collection, Timestamp } from "@firebase/firestore";
 
-import { BehaviorSubject, from, map, shareReplay, switchMap, take, tap } from "rxjs";
+import { from, map, shareReplay, take } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CategoryService {
-
-    private categories$ = new BehaviorSubject<ICategory[]>([]);
 
     constructor(
         private readonly fireStore: Firestore
@@ -28,6 +26,17 @@ export class CategoryService {
             shareReplay(),
             map(res => <ICategory[]>res)
         )
+    }
+
+    getCategory(id: string) {
+        return docData(
+            doc(this.fireStore, 'categories', id), {
+                idField: 'id'
+            }
+        )
+        .pipe(
+            map(res => <ICategory>res)
+        );
     }
 
     createCategory(title: string) {

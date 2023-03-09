@@ -11,7 +11,17 @@ import { IPost } from "./post.service";
 })
 export class PostCategoryService {
 
-    constructor() {}
+    getCategoryWithPosts(category$: Observable<ICategory>, posts$: Observable<IPost[]>) {
+        return zip([
+            category$, posts$
+        ])
+        .pipe(
+            map(([category, posts]) => <ICategoryWithPosts>{
+                category,
+                posts
+            })
+        );
+    }
 
     getPostWithCategory(post$:Observable<IPost>, categories$:Observable<ICategory[]>) {
         return zip([
@@ -50,7 +60,10 @@ export class PostCategoryService {
         )
     }
 }
-
+export interface ICategoryWithPosts {
+    category:ICategory;
+    posts: IPost[];
+}
 
 export interface IPostWithCategory {
     id: string;
