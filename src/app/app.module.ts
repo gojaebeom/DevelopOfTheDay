@@ -6,10 +6,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { environment } from '../environments/environment';
 import { DecorateBoxContainer } from './containers/decorate-box/decorate-box.container';
+import { ModalModule } from './containers/modal/modal.module';
+import { ParticleComponent } from './components/particle/particle.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ModalModule } from './containers/modal/modal.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ModalModule } from './containers/modal/modal.module';
     AppRoutingModule,
     ModalModule,
     DecorateBoxContainer,
+    ParticleComponent,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage())

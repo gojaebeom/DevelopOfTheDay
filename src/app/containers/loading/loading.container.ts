@@ -9,28 +9,31 @@ import { LoadingService } from "src/app/services/UI/loading.service";
     template: `
     <div class="w-full p-6 md:px-10 z-50 absolute left-0 top-0 h-[100%]" *ngIf="loading$|async">
         <div id="loading-view" class="h-full pt-10">
-            <div class="loading-view-item-1 p-1 my-4 rounded-lg w-full h-[40px] animate-pulse"></div>
+            <div class="loading-view-item-1 p-1.5 my-4 rounded-lg w-[60%] h-[40px] animate-pulse"></div>
             <br/>
-            <div class="loading-view-item-2 p-1 mb-4 rounded-xl w-[90%] animate-pulse"></div>
-            <div class="loading-view-item-3 p-1 mb-4 rounded-xl w-[80%] animate-pulse"></div>
-            <div class="loading-view-item-2 p-1 mb-4 rounded-xl w-[55%] animate-pulse"></div>
-            <div class="loading-view-item-4 p-1 mb-4 rounded-xl w-[50%] animate-pulse"></div>
-            <div class="loading-view-item-1 p-1 mb-4 rounded-xl w-[60%] animate-pulse"></div>
-            <div class="loading-view-item-1 p-1 mb-4 rounded-xl w-full animate-pulse"></div>
-            <div class="loading-view-item-1 p-1 mb-10 rounded-xl w-full animate-pulse"></div>
-            <div class="loading-view-item-2 p-1 mb-4 rounded-xl w-[90%] animate-pulse"></div>
-            <div class="loading-view-item-3 p-1 mb-4 rounded-xl w-[80%] animate-pulse"></div>
-            <div class="loading-view-item-2 p-1 mb-4 rounded-xl w-[55%] animate-pulse"></div>
-            <div class="loading-view-item-4 p-1 mb-4 rounded-xl w-[50%] animate-pulse"></div>
-            <div class="loading-view-item-1 p-1 mb-4 rounded-xl w-[60%] animate-pulse"></div>
-            <div class="loading-view-item-1 p-1 mb-4 rounded-xl w-full animate-pulse"></div>
-            <div class="loading-view-item-4 p-1 mb-4 rounded-xl w-[40%] animate-pulse"></div>
-            <div class="loading-view-item-2 p-1 mb-4 rounded-xl w-[90%] animate-pulse"></div>
-            <div class="loading-view-item-3 p-1 mb-4 rounded-xl w-[80%] animate-pulse"></div>
-            <div class="loading-view-item-2 p-1 mb-4 rounded-xl w-[55%] animate-pulse"></div>
-            <div class="loading-view-item-4 p-1 mb-4 rounded-xl w-[50%] animate-pulse"></div>
-            <div class="loading-view-item-1 p-1 mb-4 rounded-xl w-[60%] animate-pulse"></div>
-            <div class="loading-view-item-1 p-1 mb-4 rounded-xl w-full animate-pulse"></div>
+            <div class="loading-view-item-2 p-1.5 mb-4 rounded-lg w-[70%] animate-pulse"></div>
+            <div class="loading-view-item-3 p-1.5 mb-4 rounded-lg w-[50%] animate-pulse"></div>
+            <div class="loading-view-item-2 p-1.5 mb-4 rounded-lg w-[55%] animate-pulse"></div>
+            <div class="loading-view-item-4 p-1.5 mb-4 rounded-lg w-[50%] animate-pulse"></div>
+            <div class="loading-view-item-1 p-1.5 mb-4 rounded-lg w-[60%] animate-pulse"></div>
+            <br/>
+            <div class="loading-view-item-1 p-1.5 mb-4 rounded-lg w-[60%] animate-pulse"></div>
+            <div class="loading-view-item-1 p-1.5 mb-10 rounded-lg w-[60%] animate-pulse"></div>
+            <div class="loading-view-item-2 p-1.5 mb-4 rounded-lg w-[70%] animate-pulse"></div>
+            <div class="loading-view-item-3 p-1.5 mb-4 rounded-lg w-[50%] animate-pulse"></div>
+            <div class="loading-view-item-2 p-1.5 mb-4 rounded-lg w-[55%] animate-pulse"></div>
+            <br/>
+            <div class="loading-view-item-4 p-1.5 mb-4 rounded-lg w-[50%] animate-pulse"></div>
+            <div class="loading-view-item-1 p-1.5 mb-4 rounded-lg w-[60%] animate-pulse"></div>
+            <div class="loading-view-item-1 p-1.5 mb-4 rounded-lg w-[60%] animate-pulse"></div>
+            <div class="loading-view-item-4 p-1.5 mb-4 rounded-lg w-[40%] animate-pulse"></div>
+            <div class="loading-view-item-2 p-1.5 mb-4 rounded-lg w-[70%] animate-pulse"></div>
+            <div class="loading-view-item-3 p-1.5 mb-4 rounded-lg w-[50%] animate-pulse"></div>
+            <br/>
+            <div class="loading-view-item-2 p-1.5 mb-4 rounded-lg w-[55%] animate-pulse"></div>
+            <div class="loading-view-item-4 p-1.5 mb-4 rounded-lg w-[50%] animate-pulse"></div>
+            <div class="loading-view-item-1 p-1.5 mb-4 rounded-lg w-[60%] animate-pulse"></div>
+            <div class="loading-view-item-1 p-1.5 mb-4 rounded-lg w-[60%] animate-pulse"></div>
         </div>
     </div>
     `,

@@ -1,10 +1,12 @@
 <!-- BACKGROUND THEME WRAP -->
 <div [id]="theme$ | async" class="relative h-screen p-20">
   
+  <app-particle></app-particle>
+
   <!-- BACKGROUND BLUR WRAP -->
   <div
     id="appBackground"
-    class="fixed inset-0 flex flex-col items-center justify-start overflow-hidden overflow-y-auto backdrop-blur-sm"
+    class="fixed inset-0 flex flex-col items-center justify-start overflow-hidden overflow-y-auto"
   >
     <!-- APP WRAP  -->
     <div class="w-full md:max-w-[800px] 2xl:max-w-[1000px] p-1 md:p-4">
@@ -56,6 +58,8 @@
       </footer>
     </div>
   </div>
+  
+  
 
   <app-decorate-box></app-decorate-box>
   <app-modal></app-modal>
