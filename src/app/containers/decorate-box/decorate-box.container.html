@@ -1,57 +1,32 @@
-<ng-container *ngIf="(handler.isOpened()|async) as isOpened">
-  <div
-    class="fixed bottom-0 left-0 z-50 flex justify-end w-full p-4 md:p-10 md:pr-20"
-  >
-    <!-- DECORATE BOX WRAP -->
-    <div
-      id="decorateBox"
-      class="shadow-lg w-auto h-auto text-xs  rounded-xl transition-all duration-200"
-    >
-      <!-- OPEN DECORATE BOX -->
-      <div
-        class="flex flex-col min-w-[280px] p-4"
-        [ngClass]="{'hidden': isOpened === 'close'}"
-      >
-        <div class="mb-4">테마 선택</div>
-        <div class="flex">
-          <div class="flex flex-col items-center flex-1">
-            <button
-              class="w-10 h-10 rounded-full bg-gradient-to-br from-[#f7e3cf] to-[#edf8ec]"
-              (click)="onChangeTheme('hanami')"
-            ></button>
-            <div class="mt-2">하나미</div>
-          </div>
-          <div class="flex flex-col items-center flex-1">
-            <button
-              class="w-10 h-10 rounded-full bg-gradient-to-br from-[#b7b6dd] to-[#c9dde7]"
-              (click)="onChangeTheme('rainCloud')"
-            ></button>
-            <div class="mt-2">비구름</div>
-          </div>
-          <div class="flex flex-col items-center flex-1">
-            <button
-              class="w-10 h-10 rounded-full bg-gradient-to-br from-[#f9d99a] to-[#f6c2ab]"
-              (click)="onChangeTheme('twilight')"
-            ></button>
-            <div class="mt-2">어스름</div>
-          </div>
-          <div class="flex flex-col items-center flex-1">
-            <button
-              class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900"
-              (click)="onChangeTheme('midNight')"
-            ></button>
-            <div class="mt-2">미드나이트</div>
-          </div>
-        </div>
-      </div>
+<ng-container *ngIf="(isOpened$|async) as isOpened">
 
-      <!-- CLOSE DECORATE BOX -->
-      <div
-        class="flex items-center justify-center w-10 h-10 p-4"
-        [ngClass]="{'hidden': isOpened === 'open'}"
-      >
-        <i class="text-xl pointer-events-none fa-solid fa-sliders"></i>
+
+  <!-- DECORATE BOX WRAP -->
+  <button
+    (click)="onOpenDecorateBox()"
+    id="decorateOpenBtn"
+    class="fixed right-6 bottom-6 md:right-20 md:bottom-10 w-10 h-10 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-xl"
+    [ngClass]="{'hidden': isOpened === 'open'}"
+  >
+    <i class="text-xl pointer-events-none fa-solid fa-sliders"></i>
+  </button>
+
+  <div
+    (click)="onCloseDecorateBox($event)"
+    id="decorateBoxWrap"
+    class="fixed inset-0 visible backdrop-blur-md z-40 flex items-end justify-center transition-all duration-300"
+    [ngClass]="{'pointer-events-none opacity-0': isOpened === 'close'}"
+  >
+    <div  
+      id="decorateBox"
+      class="shadow-2xl text-xs transition-all z-50 duration-200 w-full md:max-w-[350px] rounded-t-xl md:rounded-t-lg border border-b-0"
+      [ngClass]="{'translate-y-[300px]': isOpened === 'close'}"
+    >
+      <div class="flex flex-col p-4" [ngClass]="{'hidden': isOpened === 'close'}">
+        <app-theme-widget></app-theme-widget>
       </div>
     </div>
   </div>
+
+
 </ng-container>

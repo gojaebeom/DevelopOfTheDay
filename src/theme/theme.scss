@@ -46,7 +46,7 @@
         @apply bg-[#161234];
 
         section {
-            @apply bg-[#252048];
+            @apply bg-[#1e193d];
 
             .category-tag {
                 @apply bg-gray-600;
@@ -54,8 +54,11 @@
         }
     }
 
-    #decorateBox {
+    #decorateOpenBtn {
         @apply bg-[#252048] border border-gray-700;
+    }
+    #decorateBox {
+        @apply bg-[#252048] border-gray-700;
     }
 
     #tabWrap {
@@ -67,7 +70,7 @@
     }
 
     #loading-view {
-        @apply bg-[#252048];
+        @apply bg-[#1e193d];
 
         .loading-view-item-1 {
             @apply bg-gray-700;
@@ -88,8 +91,11 @@
     }
 }
 
-#decorateBox {
+#decorateOpenBtn {
     @apply bg-white border border-gray-200;
+}
+#decorateBox {
+    @apply bg-white border-gray-200;
 }
 
 #tabWrap {

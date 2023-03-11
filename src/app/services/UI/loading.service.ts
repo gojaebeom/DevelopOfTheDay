@@ -13,7 +13,7 @@ export class LoadingService {
     constructor() {
         this.addInterval$
             .pipe(
-                debounceTime(200),
+                debounceTime(1000),
                 tap(() => this.loading$.next(false))
             )
             .subscribe();

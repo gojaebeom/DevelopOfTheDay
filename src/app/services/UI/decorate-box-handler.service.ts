@@ -1,7 +1,6 @@
-import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
-import { BehaviorSubject, fromEvent, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
@@ -19,40 +18,11 @@ export class DecorateBoxHandlerService {
         return this.isOpen$.asObservable();
     }
 
-    toggleObserver() {
-        if(!isPlatformBrowser(this.platformId)) {
-            return;
-        }
+    open() {
+        this.isOpen$.next('open');
+    }
 
-        document.addEventListener('click', (event:any) => {
-            let target = event.target;
-
-            const decorateBox = document.querySelector('#decorateBox');
-            if(!decorateBox){
-                return;
-            }
-
-            while(true) {
-                if(target !== decorateBox) {
-                    target = target.parentNode;
-                } 
-
-                if(!target) {
-                    this.isOpen$.next('close');
-                    return;
-                }
-
-                if(target === document.body) {
-                    this.isOpen$.next('close');
-                    return;
-                }
-
-                if(target === decorateBox) {
-                    this.isOpen$.next('open');
-                    return;
-                }
-            }
-
-        });
+    close() {
+        this.isOpen$.next('close');
     }
 }

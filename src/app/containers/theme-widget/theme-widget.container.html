@@ -1,0 +1,33 @@
+<div>
+    <div class="mb-4">테마 선택</div>
+    <div class="flex w-full">
+      <div class="flex flex-col items-center flex-1">
+        <button
+          class="w-10 h-10 rounded-full bg-gradient-to-br from-[#f7e3cf] to-[#edf8ec]"
+          (click)="onChangeTheme('hanami')"
+        ></button>
+        <div class="mt-2">하나미</div>
+      </div>
+      <div class="flex flex-col items-center flex-1">
+        <button
+          class="w-10 h-10 rounded-full bg-gradient-to-br from-[#b7b6dd] to-[#c9dde7]"
+          (click)="onChangeTheme('rainCloud')"
+        ></button>
+        <div class="mt-2">비구름</div>
+      </div>
+      <div class="flex flex-col items-center flex-1">
+        <button
+          class="w-10 h-10 rounded-full bg-gradient-to-br from-[#f9d99a] to-[#f6c2ab]"
+          (click)="onChangeTheme('twilight')"
+        ></button>
+        <div class="mt-2">어스름</div>
+      </div>
+      <div class="flex flex-col items-center flex-1">
+        <button
+          class="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900"
+          (click)="onChangeTheme('midNight')"
+        ></button>
+        <div class="mt-2">미드나이트</div>
+      </div>
+    </div>
+</div>
