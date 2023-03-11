@@ -53,6 +53,10 @@
             }
         }
     }
+    
+    #musicWidget {
+        @apply bg-[#1e193d];
+    }
 
     #decorateOpenBtn {
         @apply bg-[#252048] border border-gray-700;
@@ -89,6 +93,10 @@
     #viewer {
         @apply text-gray-200;
     }
+}
+
+#musicWidget {
+    @apply bg-gray-100;
 }
 
 #decorateOpenBtn {

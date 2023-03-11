@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { DecorateBoxHandlerService } from 'src/app/services/UI/decorate-box-handler.service';
 import { ThemeWidgetContainer } from '../theme-widget/theme-widget.container';
+import { MusicWidgetContainer } from '../music-widget/music-widget.container';
 
 @Component({
   selector: 'app-decorate-box',
@@ -12,6 +13,7 @@ import { ThemeWidgetContainer } from '../theme-widget/theme-widget.container';
   imports: [
     CommonModule,
     ThemeWidgetContainer,
+    MusicWidgetContainer
   ],
   templateUrl: './decorate-box.container.html'
 })
