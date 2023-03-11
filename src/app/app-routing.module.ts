@@ -8,6 +8,7 @@ import { PostRegisterPage } from './pages/admin/post-register/post-register.page
 import { CategoryPage } from './pages/category/category.page';
 import { NotFoundPage } from './pages/error/not-found/not-found.page';
 import { HomePage } from './pages/home/home.page';
+import { PortfolioPage } from './pages/portfolio/portfolio.page';
 import { PostPage } from './pages/post/post.page';
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'posts/:id',
     component: PostPage
+  },
+  {
+    path: 'portfolio',
+    component: PortfolioPage
   },
   {
     path: 'admin',

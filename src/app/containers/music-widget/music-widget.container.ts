@@ -2,7 +2,13 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { finalize, fromEvent, take } from 'rxjs';
-import { IMusic } from 'src/app/services/music.service';
+
+export interface IMusic {
+  id: number;
+  title: string;
+  src: string;
+  thumbnail: string;
+}
 
 @Component({
   selector: 'app-music-widget',
