@@ -39,7 +39,7 @@ export class MusicWidgetContainer implements OnInit, AfterViewInit {
       src: 'https://firebasestorage.googleapis.com/v0/b/develop-of-the-day.appspot.com/o/music%2Fglitter.mp3?alt=media&token=9c1eb999-7f67-4e82-92e1-513aa27ae02c'
     },
   ];
-  currentMusicIndex = 0;
+  currentMusicIndex = this.getRandomNumber(0, 2);
   volume = 50;
   
   isPlaying:boolean = false;
@@ -64,6 +64,10 @@ export class MusicWidgetContainer implements OnInit, AfterViewInit {
         finalize(() => this.onPlayCurrentMusic())
       )
       .subscribe();
+  }
+
+  getRandomNumber(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1) + min);
   }
   
   onPlayCurrentMusic() {
