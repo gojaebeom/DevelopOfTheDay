@@ -39,7 +39,7 @@
 }
 
 #midNight {
-    @apply bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900;
+    @apply bg-gradient-to-br from-indigo-900 via-purple-900 to-[#1f1c6f];
     @apply text-gray-200;
 
     .section-wrap {
