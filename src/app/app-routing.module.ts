@@ -6,6 +6,7 @@ import { ManagerPage } from './pages/admin/manager/manager.page';
 import { PostManagerPage } from './pages/admin/manager/post-manager/post-manager.page';
 import { PostRegisterPage } from './pages/admin/post-register/post-register.page';
 import { CategoryPage } from './pages/category/category.page';
+import { NotFoundPage } from './pages/error/not-found/not-found.page';
 import { HomePage } from './pages/home/home.page';
 import { PostPage } from './pages/post/post.page';
 
@@ -62,6 +63,10 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: '**',
+    component: NotFoundPage
+  }
 ];
 
 @NgModule({
