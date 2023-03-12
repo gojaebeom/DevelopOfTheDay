@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
-import { Observable } from 'rxjs';
+import { debounceTime, Observable, Subject, tap } from 'rxjs';
 
 import { LoadingContainer } from 'src/app/containers/loading/loading.container';
 import { CategoryService, ICategory } from 'src/app/services/category.service';
@@ -24,11 +24,23 @@ export class HomePage implements OnInit {
   categories$!:Observable<ICategory[]>;
   latestPosts$!:Observable<IPostWithCategory[]>;
 
+  private clickMe$ = new Subject();
+  private counter = 0;
+
   constructor(
     private readonly postService: PostService,
     private readonly categoryService: CategoryService,
     private readonly postCategoryService: PostCategoryService,
-  ) {}
+    private readonly router: Router
+  ) {
+    this.clickMe$
+    .pipe(
+        tap(() => console.log(this.counter)),
+        debounceTime(1000),
+        tap(() => this.counter = 0),
+    ).subscribe();
+  }
+
 
   ngOnInit(): void {
     this.categories$ = this.categoryService.getCategories()
@@ -36,5 +48,16 @@ export class HomePage implements OnInit {
         this.postService.getLatestPosts(), 
         this.categories$
     );
+  }
+
+  clickMe() {
+    this.counter ++;
+    this.clickMe$.next(true);
+
+    if(this.counter < 5) {
+      return;
+    }
+
+    this.router.navigateByUrl('/admin');
   }
 }

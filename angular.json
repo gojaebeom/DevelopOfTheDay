@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "DevelopOfTheDay": {
+    "MyBlog": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "DevelopOfTheDay:build:production"
+              "browserTarget": "MyBlog:build:production"
             },
             "development": {
-              "browserTarget": "DevelopOfTheDay:build:development"
+              "browserTarget": "MyBlog:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "DevelopOfTheDay:build"
+            "browserTarget": "MyBlog:build"
           }
         },
         "test": {
@@ -124,12 +124,12 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "configurations": {
             "development": {
-              "browserTarget": "DevelopOfTheDay:build:development",
-              "serverTarget": "DevelopOfTheDay:server:development"
+              "browserTarget": "MyBlog:build:development",
+              "serverTarget": "MyBlog:server:development"
             },
             "production": {
-              "browserTarget": "DevelopOfTheDay:build:production",
-              "serverTarget": "DevelopOfTheDay:server:production"
+              "browserTarget": "MyBlog:build:production",
+              "serverTarget": "MyBlog:server:production"
             }
           },
           "defaultConfiguration": "development"
@@ -143,12 +143,12 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "DevelopOfTheDay:build:production",
-              "serverTarget": "DevelopOfTheDay:server:production"
+              "browserTarget": "MyBlog:build:production",
+              "serverTarget": "MyBlog:server:production"
             },
             "development": {
-              "browserTarget": "DevelopOfTheDay:build:development",
-              "serverTarget": "DevelopOfTheDay:server:development"
+              "browserTarget": "MyBlog:build:development",
+              "serverTarget": "MyBlog:server:development"
             }
           },
           "defaultConfiguration": "production"

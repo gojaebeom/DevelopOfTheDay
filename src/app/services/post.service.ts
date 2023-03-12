@@ -43,7 +43,9 @@ export class PostService {
                 this.postCollection, 
                 orderBy('createdAt', 'desc'),
                 limit(10),
-            )
+            ), {
+                idField:'id'
+            }
         )
         .pipe(
             shareReplay(),

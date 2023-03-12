@@ -1,5 +1,5 @@
 {
-  "name": "develop-of-the-day",
+  "name": "MyBlog",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,10 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "dev:ssr": "ng run DevelopOfTheDay:serve-ssr",
-    "serve:ssr": "node dist/DevelopOfTheDay/server/main.js",
-    "build:ssr": "ng build && ng run DevelopOfTheDay:server",
-    "prerender": "ng run DevelopOfTheDay:prerender"
+    "dev:ssr": "ng run MyBlog:serve-ssr",
+    "serve:ssr": "node dist/MyBlog/server/main.js",
+    "build:ssr": "ng build && ng run MyBlog:server",
+    "prerender": "ng run MyBlog:prerender"
   },
   "private": true,
   "dependencies": {

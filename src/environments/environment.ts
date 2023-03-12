@@ -1,13 +1,12 @@
 export const environment = {
     firebase: {
-      projectId: 'develop-of-the-day',
-      appId: '1:358918053370:web:d4a052febd3fa6a53ad843',
-      storageBucket: 'develop-of-the-day.appspot.com',
-      locationId: 'asia-northeast3',
-      apiKey: 'AIzaSyAU6TRXnFmwXh71CUbuTy3rKl6wpuvbDno',
-      authDomain: 'develop-of-the-day.firebaseapp.com',
-      messagingSenderId: '358918053370',
-      measurementId: 'G-8JRXNXPQ4D',
+      apiKey: "AIzaSyCQfi9rAsAZUChLHX0KoaIH5o2GTJioN5Y",
+      authDomain: "myblog-5feeb.firebaseapp.com",
+      projectId: "myblog-5feeb",
+      storageBucket: "myblog-5feeb.appspot.com",
+      messagingSenderId: "25283766632",
+      appId: "1:25283766632:web:ed39c236fb57bd10550edd",
+      measurementId: "G-11EFJZFZP5"
     },
     production: false
   };

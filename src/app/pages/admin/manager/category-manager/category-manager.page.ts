@@ -29,9 +29,9 @@ export class CategoryManagerPage implements OnInit {
     if (!result) {
       return;
     }
-    if(!allowKoEngNumber.test(result)) {
-      return window.alert('카테고리명에 특수문자는 포함될 수 없습니다');
-    }
+    // if(!allowKoEngNumber.test(result)) {
+    //   return window.alert('카테고리명에 특수문자는 포함될 수 없습니다');
+    // }
 
     this.categoryService.createCategory(result).subscribe();
   }

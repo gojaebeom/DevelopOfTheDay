@@ -1,7 +1,7 @@
 <div class="font-d">
   <div class="font-c flex justify-start items-center text-xl md:text-xl xl:text-2xl font-bold mb-2">
     <span class="mr-1">Category</span>
-    <img src="https://em-content.zobj.net/thumbs/320/microsoft/310/crystal-ball_1f52e.png" class="w-6 h-6"/>
+    <img src="https://em-content.zobj.net/thumbs/320/microsoft/310/crystal-ball_1f52e.png" class="w-6 h-6" (click)="clickMe()"/>
   </div>
   <div class="flex flex-wrap font-p mb-6">
     <a
@@ -36,7 +36,7 @@
       </a>
       <img src="https://em-content.zobj.net/thumbs/320/openmoji/338/stopwatch_23f1-fe0f.png" class="w-4 h-4 mr-0.5 mt-0.5"/>
       <span class="font-d">
-        {{post.createdAt.seconds|date:'yyyy.mm.dd'}}
+        {{post.createdAt.toDate()|date}}
       </span>
     </div>
     <a [routerLink]="['/posts', post.id]">

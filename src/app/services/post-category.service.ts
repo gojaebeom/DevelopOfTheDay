@@ -46,18 +46,16 @@ export class PostCategoryService {
             categories$
         ])
         .pipe(
-            map(([posts, categories]) => <IPostWithCategory[]>posts.map(post => {
-                    return {
-                      id: post.id,
-                      title: post.title,
-                      content: post.content,
-                      description: post.description,
-                      createdAt: post.createdAt,
-                      category: categories.find(category => category.id === post.categoryId)
-                    }
-                })
+            map(([posts, categories]) => <IPostWithCategory[]>posts.map(post => ({
+                    id: post.id,
+                    title: post.title,
+                    content: post.content,
+                    description: post.description,
+                    createdAt: post.createdAt,
+                    category: categories.find(category => category.id === post.categoryId)
+                }))
             )
-        )
+        );
     }
 }
 export interface ICategoryWithPosts {
