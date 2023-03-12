@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
 import { debounceTime, Observable, Subject, tap } from 'rxjs';
@@ -19,7 +19,7 @@ import { PostService } from 'src/app/services/post.service';
   ],
   templateUrl: './home.page.html',
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, AfterViewInit {
 
   categories$!:Observable<ICategory[]>;
   latestPosts$!:Observable<IPostWithCategory[]>;
@@ -28,10 +28,11 @@ export class HomePage implements OnInit {
   private counter = 0;
 
   constructor(
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
     private readonly postService: PostService,
     private readonly categoryService: CategoryService,
     private readonly postCategoryService: PostCategoryService,
-    private readonly router: Router
+    private readonly router: Router,
   ) {
     this.clickMe$
     .pipe(
@@ -48,6 +49,20 @@ export class HomePage implements OnInit {
         this.postService.getLatestPosts(), 
         this.categories$
     );
+  }
+
+  ngAfterViewInit() {
+    if(!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    // 서비스로 분리하여 재사용 필요
+    const imgEls = document.querySelectorAll('img');
+    imgEls.forEach((img:any) => {
+      img.addEventListener('load', () => {
+        img.classList.add('loaded');
+      });
+    })
   }
 
   clickMe() {

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 
 declare var particlesJS: any;
 
@@ -8,9 +9,15 @@ declare var particlesJS: any;
   standalone:true
 })
 export class ParticleComponent implements OnInit {
-  constructor() {}
+  constructor(
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+  ) {}
 
   ngOnInit(): void {
+    if(!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     particlesJS('particles-js', {
         "particles": {
           "number": {

@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 
 import { finalize, fromEvent, take } from 'rxjs';
 
@@ -71,12 +71,20 @@ export class MusicWidgetContainer implements OnInit, AfterViewInit {
   selectedMusic:IMusic = this.musicList[this.currentMusicIndex];
   audio!:HTMLAudioElement; 
 
-  ngOnInit() {
-    this.audio = new Audio();
-    this.audio.volume = this.volume / 100;
-  }
+  constructor(
+    @Inject(PLATFORM_ID) private readonly platformId: Object,
+  ) {}
+
+  ngOnInit() { }
 
   ngAfterViewInit(): void {
+    if(!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    this.audio = new Audio();
+    this.audio.volume = this.volume / 100;
+
     const element = document.querySelector('#appBackground');
     if(!element) {
       return;
