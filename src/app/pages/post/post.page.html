@@ -1,5 +1,5 @@
 <div id="viewer" class="font-d" *ngIf="post$|async as post">
-    <div class="flex justify-start items-center mb-6">
+    <div class="flex justify-start items-center mb-2">
       <a routerLink="/" class="mr-4">
           <i class="fa-solid fa-chevron-left text-xl md:text-2xl"></i>
       </a>
@@ -12,7 +12,7 @@
       </a>
       <img src="https://em-content.zobj.net/thumbs/320/openmoji/338/stopwatch_23f1-fe0f.png" class="w-4 h-4 mr-0.5 mt-0.5"/>
       <span class="font-d">
-        {{post.createdAt.seconds|date:'yyyy.mm.dd'}}
+        {{post.createdAt.toDate()|date}}
       </span>
     </div>
     <p class="mt-4">{{post.description}}</p>
