@@ -40,7 +40,7 @@ export class MusicWidgetContainer implements OnInit, AfterViewInit {
     },
     {
       id:4,
-      title: '테일즈위버 - 프롤로그',
+      title: '테일즈위버 - Reminiscence',
       thumbnail: 'https://firebasestorage.googleapis.com/v0/b/myblog-5feeb.appspot.com/o/music%2FCUKwz61VEAQ55WW.png?alt=media&token=cb4682af-42ae-454d-b5f8-e4e825d3ba81',
       src: 'https://firebasestorage.googleapis.com/v0/b/myblog-5feeb.appspot.com/o/music%2FReminiscence.mp3?alt=media&token=34fc201a-6a67-46c3-b822-a5a367a05de7'
     },

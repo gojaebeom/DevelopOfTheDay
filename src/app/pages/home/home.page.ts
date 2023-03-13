@@ -6,6 +6,7 @@ import { debounceTime, Observable, Subject, tap } from 'rxjs';
 
 import { LoadingContainer } from 'src/app/containers/loading/loading.container';
 import { CategoryService, ICategory } from 'src/app/services/category.service';
+import { DisqusService } from 'src/app/services/disqus.service';
 import { IPostWithCategory, PostCategoryService } from 'src/app/services/post-category.service';
 import { PostService } from 'src/app/services/post.service';
 
@@ -33,6 +34,7 @@ export class HomePage implements OnInit, AfterViewInit {
     private readonly categoryService: CategoryService,
     private readonly postCategoryService: PostCategoryService,
     private readonly router: Router,
+    private readonly disqusService: DisqusService
   ) {
     this.clickMe$
     .pipe(
@@ -42,13 +44,14 @@ export class HomePage implements OnInit, AfterViewInit {
     ).subscribe();
   }
 
-
   ngOnInit(): void {
     this.categories$ = this.categoryService.getCategories()
     this.latestPosts$ = this.postCategoryService.getPostsWithCategory(
         this.postService.getLatestPosts(), 
         this.categories$
     );
+
+    this.disqusService.init('guestBook');
   }
 
   ngAfterViewInit() {
