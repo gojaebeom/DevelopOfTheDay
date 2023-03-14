@@ -10,7 +10,7 @@ export class DisqusService {
     init(identifier: string) {
         const disqus_config = function (this:any) {
             this.page.identifier = identifier;
-            this.page.url = 'https://dotday.xyz';
+            this.page.url = 'https://dotday.xyz/posts';
         }
         const disqus_shortname = 'jaebeomsblog';
         const existingScript = document.querySelector(`script[src^="https://${disqus_shortname}.disqus.com/embed.js"], script[src^="https://launchpad.privacymanager.io"]`);
