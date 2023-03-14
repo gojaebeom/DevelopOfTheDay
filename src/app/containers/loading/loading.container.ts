@@ -8,7 +8,7 @@ import { LoadingService } from "src/app/services/UI/loading.service";
     selector:'app-loading',
     template: `
     <div class="w-full p-6 md:px-10 z-50 absolute left-0 top-0 h-[100%]" *ngIf="loading$|async">
-        <div id="loading-view" class="h-full pt-10">
+        <div id="loading-view" class="h-full pt-2">
             <div class="loading-view-item-1 p-1.5 my-4 rounded-lg w-[60%] h-[40px] animate-pulse"></div>
             <br/>
             <div class="loading-view-item-2 p-1.5 mb-4 rounded-lg w-[70%] animate-pulse"></div>

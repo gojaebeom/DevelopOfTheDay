@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
 import { doc, getDoc } from "@firebase/firestore";
 
-import { from, tap } from "rxjs";
+import { from } from "rxjs";
 
 @Injectable({
     providedIn: 'root'

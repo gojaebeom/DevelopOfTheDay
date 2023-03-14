@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 
@@ -10,9 +10,7 @@ export class DecorateBoxHandlerService {
 
     private isOpen$ = new BehaviorSubject<string>('close');
 
-    constructor(
-        @Inject(PLATFORM_ID) private readonly platformId: Object
-    ) {}
+    constructor( ) {}
 
     isOpened() {
         return this.isOpen$.asObservable();

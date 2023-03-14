@@ -1,7 +1,8 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { finalize, fromEvent, take } from 'rxjs';
+import { PlatformService } from 'src/app/services/platform.service';
 
 export interface IMusic {
   id: number;
@@ -72,33 +73,33 @@ export class MusicWidgetContainer implements OnInit, AfterViewInit {
   audio!:HTMLAudioElement; 
 
   constructor(
-    @Inject(PLATFORM_ID) private readonly platformId: Object,
+    private readonly platform: PlatformService
   ) {}
 
   ngOnInit() { }
 
   ngAfterViewInit(): void {
-    if(!isPlatformBrowser(this.platformId)) {
-      return;
-    }
+    this.platform.onBrowser(() => {
 
-    this.audio = new Audio();
-    this.audio.volume = this.volume / 100;
+      this.audio = new Audio();
+      this.audio.volume = this.volume / 100;
+  
+      const element = document.querySelector('#appBackground');
+      if(!element) {
+        return;
+      }
+  
+      fromEvent(document, 'click')
+        .pipe(
+          take(1),
+          finalize(() => this.onPlayCurrentMusic())
+        )
+        .subscribe();
+  
+      this.audio.addEventListener('ended', () => {
+        this.onPlayNextMusic();
+      });
 
-    const element = document.querySelector('#appBackground');
-    if(!element) {
-      return;
-    }
-
-    fromEvent(document, 'click')
-      .pipe(
-        take(1),
-        finalize(() => this.onPlayCurrentMusic())
-      )
-      .subscribe();
-
-    this.audio.addEventListener('ended', () => {
-      this.onPlayNextMusic();
     });
   }
 

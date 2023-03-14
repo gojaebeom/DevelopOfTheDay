@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Timestamp } from "@angular/fire/firestore";
-import { map, Observable, tap, zip } from "rxjs";
+import { map, Observable, zip } from "rxjs";
 
 import { ICategory } from "./category.service";
 

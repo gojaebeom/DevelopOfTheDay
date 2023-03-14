@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 
-import { finalize, tap } from 'rxjs';
+import { tap } from 'rxjs';
 
 import { AuthService } from 'src/app/services/auth.service';
 

@@ -1,14 +1,16 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
-import { Observable, of, switchMap, tap, throwError, zip } from 'rxjs';
+import { Observable, Subscription, tap, throwError } from 'rxjs';
 import { LoadingContainer } from 'src/app/containers/loading/loading.container';
 
 import { CategoryService } from 'src/app/services/category.service';
 import { DisqusService } from 'src/app/services/disqus.service';
+import { PlatformService } from 'src/app/services/platform.service';
 import { IPostWithCategory, PostCategoryService } from 'src/app/services/post-category.service';
 import { PostService } from 'src/app/services/post.service';
+import { ImageEffectService } from 'src/app/services/UI/image-effect.service';
 
 @Component({
   selector: 'app-post',
@@ -20,32 +22,34 @@ import { PostService } from 'src/app/services/post.service';
   ],
   templateUrl: './post.page.html'
 })
-export class PostPage implements OnInit, AfterViewInit{
+export class PostPage implements OnInit, AfterViewInit, OnDestroy{
 
   post$!:Observable<IPostWithCategory>;
+  subscription?: Subscription;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    private readonly platform: PlatformService,
+    private readonly disqusService: DisqusService,
     private readonly postService: PostService,
     private readonly categoryService: CategoryService,
     private readonly postCategoryService: PostCategoryService,
     private readonly route: ActivatedRoute,
-    private readonly disqusService: DisqusService
+    private readonly imageEffect: ImageEffectService
   ) {}
 
   ngOnInit(): void {
-    this.route.params
+    this.subscription = this.route.params
     .pipe(
       tap((event:any) => {
         if(!event.id){
           throwError(() => 'not found post');
         }
 
-        this.disqusService.init(event.id);
+        this.platform.onBrowser(() => this.disqusService.init(event.id));
 
         const catetories$ = this.categoryService.getCategories();
         const post$ = this.postService.getPost(event.id);
-
+        
         this.post$ = this.postCategoryService.getPostWithCategory(post$, catetories$);
       }),
     )
@@ -53,13 +57,17 @@ export class PostPage implements OnInit, AfterViewInit{
   }
 
   ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
+    this.platform.onBrowser(() => {
+      const element = document.querySelector('#appBackground');
+      element?.scrollTo({
+        top: 0
+      });
 
-    const element = document.querySelector('#appBackground');
-    element?.scrollTo({
-      top: 0
+      this.imageEffect.imagePadeIn();
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

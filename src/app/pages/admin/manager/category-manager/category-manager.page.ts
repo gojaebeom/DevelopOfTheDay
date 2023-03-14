@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CategoryService, ICategory } from 'src/app/services/category.service';
-import { allowKoEngNumber } from 'src/app/utils/regex';
 
 @Component({
   selector: 'app-category-manager',

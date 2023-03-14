@@ -1,28 +1,17 @@
-import { isPlatformBrowser } from "@angular/common";
-import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { Injectable } from "@angular/core";
 
 @Injectable({
     providedIn:'root'
 })
 export class DisqusService {
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: Object,
-    ) {}
+    constructor() {}
 
     init(identifier: string) {
-        if (!isPlatformBrowser(this.platformId)) {
-            return;
+        const disqus_config = function (this:any) {
+            this.page.identifier = identifier;
+            this.page.url = 'https://dotday.xyz';
         }
-        
-        // 브라우저에서만 Disqus 스크립트 로드
-        const disqus_config = {
-            page: {
-                //   url: 'localhost:4200/posts',
-              url: 'https://dotday.xyz/posts',
-              identifier: identifier
-            }
-        };
         const disqus_shortname = 'jaebeomsblog';
         const existingScript = document.querySelector(`script[src^="https://${disqus_shortname}.disqus.com/embed.js"], script[src^="https://launchpad.privacymanager.io"]`);
         

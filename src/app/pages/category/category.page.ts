@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
-import { Observable, tap, throwError } from 'rxjs';
+import { Observable, Subscription, tap, throwError } from 'rxjs';
 
 import { LoadingContainer } from 'src/app/containers/loading/loading.container';
 import { CategoryService } from 'src/app/services/category.service';
@@ -19,9 +19,10 @@ import { PostService } from 'src/app/services/post.service';
   ],
   templateUrl: './category.page.html'
 })
-export class CategoryPage implements OnInit{
+export class CategoryPage implements OnInit, OnDestroy {
 
   categoryWithPosts$!:Observable<ICategoryWithPosts>;
+  subscription?:Subscription;
 
   constructor(
     private readonly categoryServic: CategoryService,
@@ -31,7 +32,7 @@ export class CategoryPage implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    this.route.params
+    this.subscription = this.route.params
       .pipe(
         tap((event:any)=> {
           if(!event.id) {
@@ -43,5 +44,9 @@ export class CategoryPage implements OnInit{
         })
       )
       .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

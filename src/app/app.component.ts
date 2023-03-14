@@ -1,7 +1,7 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { PlatformService } from './services/platform.service';
 
 import { Theme, ThemeService } from './services/UI/theme.service';
 
@@ -15,10 +15,12 @@ export class AppComponent implements OnInit{
   theme$!: Observable<Theme>;
 
   constructor(
+    private readonly platform: PlatformService,
     private readonly themeService: ThemeService,
   ) { }
 
   ngOnInit() {
+    this.platform.onBrowser(() => this.themeService.initTheme());
     this.theme$ = this.themeService.getTheme();
   }
 }
