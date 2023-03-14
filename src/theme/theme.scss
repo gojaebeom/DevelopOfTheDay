@@ -1,3 +1,36 @@
+/* THEME COLORS */
+$primary-bg-from: #fbd1a4;
+$primary-bg-to: #d0f6ce;
+$primary-container-from: white;
+$primary-container-to: white;
+$primary-text-neutral: #404040;
+$primary-text-accent: #353fce;
+$primary-outline: #E5E7EB;
+
+$secondary-bg-from: #bab8e0;
+$secondary-bg-to: #a3c7db;
+$secondary-container-from: $primary-container-from;
+$secondary-container-to: $primary-container-to;
+$secondary-text-neutral: $primary-text-neutral;
+$secondary-text-accent: $primary-text-neutral;
+$secondary-outline: $primary-outline;
+
+$tertiary-bg-from: #f9d99a;
+$tertiary-bg-to: #f5b092;
+$tertiary-container-from: $primary-container-from;
+$tertiary-container-to: $primary-container-to;
+$tertiary-text-neutral: $primary-text-neutral;
+$tertiary-text-accent: $primary-text-neutral;
+$tertiary-outline: $primary-outline;
+
+$quaternary-bg-from: #232149;
+$quaternary-bg-to: #1f1c6f;
+$quaternary-container-from: #1e193d; 
+$quaternary-container-to: #161234;
+$quaternary-text-neutral: #E5E7EB;
+$quaternary-text-accent: #4b0082;
+$quaternary-outline: #b1b3b8;
+
 #hanami {
     @apply bg-gradient-to-tr from-[#fbd1a4] to-[#d0f6ce];
     @apply text-neutral-700;
@@ -39,7 +72,7 @@
 }
 
 #midNight {
-    @apply bg-gradient-to-br from-indigo-900 via-purple-900 to-[#1f1c6f];
+    @apply bg-gradient-to-br from-indigo-900 via-purple-900 to-[#232149];
     @apply text-gray-200;
 
     .section-wrap {
