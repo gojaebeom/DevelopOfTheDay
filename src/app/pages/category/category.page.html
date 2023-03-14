@@ -3,7 +3,7 @@
         <a routerLink="/" class="mr-4">
             <i class="fa-solid fa-chevron-left text-xl md:text-2xl"></i>
         </a>
-        <div class="text-xl font-p font-bold md:text-2xl 2xl:text-3xl">{{result.category.title}}</div>
+        <div class="text-xl font-c md:text-2xl 2xl:text-3xl">{{result.category.title}}</div>
     </div>
 
 
@@ -15,7 +15,7 @@
           </span>
         </div>
         <a [routerLink]="['/posts', post.id]">
-            <h2 class="text-2xl 2xl:text-3xl">{{post.title}}</h2>
+            <h2 class="text-2xl font-bold 2xl:text-3xl">{{post.title}}</h2>
             <div class="text-base xl:text-lg">{{post.description}}</div>
         </a>
     </div>

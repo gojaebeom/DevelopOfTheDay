@@ -6,7 +6,6 @@ import { Observable, Subscription, tap, throwError } from 'rxjs';
 import { LoadingContainer } from 'src/app/containers/loading/loading.container';
 
 import { CategoryService } from 'src/app/services/category.service';
-import { DisqusService } from 'src/app/services/disqus.service';
 import { PlatformService } from 'src/app/services/platform.service';
 import { IPostWithCategory, PostCategoryService } from 'src/app/services/post-category.service';
 import { PostService } from 'src/app/services/post.service';
@@ -29,7 +28,6 @@ export class PostPage implements OnInit, AfterViewInit, OnDestroy{
 
   constructor(
     private readonly platform: PlatformService,
-    private readonly disqusService: DisqusService,
     private readonly postService: PostService,
     private readonly categoryService: CategoryService,
     private readonly postCategoryService: PostCategoryService,
@@ -44,8 +42,6 @@ export class PostPage implements OnInit, AfterViewInit, OnDestroy{
         if(!event.id){
           throwError(() => 'not found post');
         }
-
-        this.platform.onBrowser(() => this.disqusService.init(event.id));
 
         const catetories$ = this.categoryService.getCategories();
         const post$ = this.postService.getPost(event.id);

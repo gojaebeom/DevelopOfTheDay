@@ -1,6 +1,6 @@
 /* THEME COLORS */
-$primary-bg-from: #fbd1a4;
-$primary-bg-to: #d0f6ce;
+$primary-bg-from: #f9c082;
+$primary-bg-to: #bbf8b7;
 $primary-container-from: white;
 $primary-container-to: white;
 $primary-text-neutral: #404040;
@@ -32,7 +32,7 @@ $quaternary-text-accent: #4b0082;
 $quaternary-outline: #b1b3b8;
 
 #hanami {
-    @apply bg-gradient-to-tr from-[#fbd1a4] to-[#d0f6ce];
+    @apply bg-gradient-to-tr from-[#f9c082] via-yellow-200 to-[#bbf8b7];
     @apply text-neutral-700;
 
     .section-wrap {
